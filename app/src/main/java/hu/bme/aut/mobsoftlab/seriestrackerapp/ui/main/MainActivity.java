@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         setContentView(R.layout.activity_main);
 
         Button details = findViewById(R.id.btnDetails);
-        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries()));
+        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries(null, null, null)));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Override
     public void showSeriesList(List<SavedSeries> savedSeries) {
-        // TODO
+        // TODO set UI
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Override
     public void showAddSeriesDialog(Set<String> alreadyAddedSeries) {
-        // TODO
+        // TODO show dialog
     }
 
     @Override

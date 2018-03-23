@@ -11,8 +11,7 @@ import javax.inject.Named;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.GetSeriesDetailsEvent;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.StepToNextEpisodeEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.PresenterWithEvents;
 
 public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
@@ -42,9 +41,9 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
         screen.showSeries(state.getSeries());
 
         if (state.getDetails() != null)
-            screen.showSeriesDetails(state.getDetails());
+            screen.showEpisodeDetails(state.getDetails());
         else
-            networkExecutor.execute(() -> interactor.getSeriesDetails());
+            networkExecutor.execute(() -> interactor.getEpisodeDetails(state.getSeries()));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -52,7 +51,23 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
         state.setDetails(event.getDetails());
 
         if (screen != null)
-            screen.showSeriesDetails(event.getDetails());
+            screen.showEpisodeDetails(state.getDetails());
+    }
+
+    public void stepToNextEpisode() {
+        // copy the series object, because the other thread is going to modify it - do not want any race conditions to happen
+        networkExecutor.execute(() -> interactor.stepToNextEpisode(state.getSeries().copy()));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStepToNextEpisodeEvent(final StepToNextEpisodeEvent event) {
+        state.setSeries(event.getSeries());
+        state.setDetails(event.getDetails());
+
+        if (screen != null) {
+            screen.showSeries(state.getSeries());
+            screen.showEpisodeDetails(state.getDetails());
+        }
     }
 
     public void navigateBack() {

@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsScreen {
 
@@ -65,12 +65,12 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
 
     @Override
     public void showSeries(SavedSeries series) {
-        // TODO
+        // TODO set UI
     }
 
     @Override
-    public void showSeriesDetails(SeriesDetails details) {
-        // TODO
+    public void showEpisodeDetails(EpisodeDetails details) {
+        // TODO set UI
     }
 
     @Override

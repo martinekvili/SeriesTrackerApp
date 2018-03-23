@@ -1,7 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 
 public interface DetailsScreen {
 
@@ -12,10 +12,10 @@ public interface DetailsScreen {
     void showSeries(SavedSeries series);
 
     /**
-     * Shows the details gathered online.
-     * @param details The details of the series to show.
+     * Shows the details of the episode gathered online.
+     * @param details The details of the episode to show.
      */
-    void showSeriesDetails(SeriesDetails details);
+    void showEpisodeDetails(EpisodeDetails details);
 
     /**
      * Navigates back to the main page.

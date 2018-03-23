@@ -1,16 +1,16 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event;
 
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 
 public class GetSeriesDetailsEvent {
 
-    private final SeriesDetails details;
+    private final EpisodeDetails details;
 
-    public GetSeriesDetailsEvent(SeriesDetails details) {
+    public GetSeriesDetailsEvent(EpisodeDetails details) {
         this.details = details;
     }
 
-    public SeriesDetails getDetails() {
+    public EpisodeDetails getDetails() {
         return details;
     }
 }

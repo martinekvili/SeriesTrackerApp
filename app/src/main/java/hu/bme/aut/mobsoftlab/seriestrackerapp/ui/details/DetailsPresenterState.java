@@ -4,12 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 
 public class DetailsPresenterState implements Parcelable {
 
-    private final SavedSeries series;
-    private SeriesDetails details;
+    private SavedSeries series;
+    private EpisodeDetails details;
 
     public DetailsPresenterState(SavedSeries series) {
         this.series = series;
@@ -19,11 +19,15 @@ public class DetailsPresenterState implements Parcelable {
         return series;
     }
 
-    public SeriesDetails getDetails() {
+    public void setSeries(SavedSeries series) {
+        this.series = series;
+    }
+
+    public EpisodeDetails getDetails() {
         return details;
     }
 
-    public void setDetails(SeriesDetails details) {
+    public void setDetails(EpisodeDetails details) {
         this.details = details;
     }
 
@@ -31,6 +35,8 @@ public class DetailsPresenterState implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(series, 0);
+        dest.writeParcelable(details, 0);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class DetailsPresenterState implements Parcelable {
 
     private DetailsPresenterState(Parcel in) {
         series = in.readParcelable(SavedSeries.class.getClassLoader());
-        details = in.readParcelable(SeriesDetails.class.getClassLoader());
+        details = in.readParcelable(EpisodeDetails.class.getClassLoader());
     }
 
     // endregion

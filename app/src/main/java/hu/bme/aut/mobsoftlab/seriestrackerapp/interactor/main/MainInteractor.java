@@ -11,12 +11,12 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetSeriesLis
 public class MainInteractor {
 
     public void getSeriesList() {
-        // TODO
+        // TODO read saved series from database
         EventBus.getDefault().post(new GetSeriesListEvent(new ArrayList<>()));
     }
 
     public void getAlreadyAddedSeries() {
-        // TODO
+        // TODO read saved series' ids from database
         EventBus.getDefault().post(new GetAlreadyAddedSeriesEvent(new HashSet<>()));
     }
 }
