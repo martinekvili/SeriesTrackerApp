@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutPresenter;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsPresenter;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.main.MainPresenter;
 
 @Module
@@ -19,5 +20,10 @@ public class UIModule {
     @Singleton
     public AboutPresenter provideAboutPresenter() {
         return new AboutPresenter();
+    }
+    
+    @Provides
+    public DetailsPresenter provideDetailsPresenter() {
+        return new DetailsPresenter();
     }
 }
