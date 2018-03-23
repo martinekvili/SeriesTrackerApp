@@ -1,5 +1,6 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.main;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import javax.inject.Inject;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
 
 public class MainActivity extends AppCompatActivity implements MainScreen {
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Override
     public void showAboutPage() {
-        // TODO
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
