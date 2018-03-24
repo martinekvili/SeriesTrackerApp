@@ -12,10 +12,18 @@ public class SavedSeries implements Parcelable {
     private int season;
     private int episode;
 
-    public SavedSeries(String imdbID, String title, String posterUrl) {
+    public SavedSeries(String imdbID, String title, String posterUrl, int season, int episode) {
         this.imdbID = imdbID;
         this.title = title;
         this.posterUrl = posterUrl;
+        this.season = season;
+        this.episode = episode;
+    }
+
+    public SavedSeries(SeriesSearchResult searchResult) {
+        this.imdbID = searchResult.getImdbID();
+        this.title = searchResult.getTitle();
+        this.posterUrl = searchResult.getPosterUrl();
     }
 
     public String getImdbID() {
@@ -47,11 +55,7 @@ public class SavedSeries implements Parcelable {
     }
 
     public SavedSeries copy() {
-        SavedSeries copy = new SavedSeries(imdbID, title, posterUrl);
-        copy.season = season;
-        copy.episode = episode;
-
-        return copy;
+        return new SavedSeries(imdbID, title, posterUrl, season, episode);
     }
 
     // region Parcelable implementation

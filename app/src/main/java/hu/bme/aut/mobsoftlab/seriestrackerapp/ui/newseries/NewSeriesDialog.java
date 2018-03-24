@@ -55,7 +55,7 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (!tryReadArguments(getArguments()))
+        if (!presenter.isInitialized() && !tryReadArguments(getArguments()))
             throw new IllegalStateException("Did not find the necessary arguments for the dialog.");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -80,7 +80,7 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
         if (alreadyAddedSeries == null)
             return false;
 
-        presenter.setAlreadyAddedSeries(new HashSet<>(Arrays.asList(alreadyAddedSeries)));
+        presenter.initialize(new HashSet<>(Arrays.asList(alreadyAddedSeries)));
         return true;
     }
 
@@ -101,6 +101,16 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     @Override
     public void onAddNewSeries(SavedSeries savedSeries) {
         listener.onAddNewSeries(savedSeries);
+    }
+
+    @Override
+    public void setSeasonCount(int seasonCount) {
+        // TODO set UI
+    }
+
+    @Override
+    public void setEpisodeCount(int episodeCount) {
+        // TODO set UI
     }
 
     public static NewSeriesDialog newInstance(Set<String> alreadyAddedSeries) {

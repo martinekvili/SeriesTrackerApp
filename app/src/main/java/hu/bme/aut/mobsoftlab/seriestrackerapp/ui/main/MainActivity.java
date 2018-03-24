@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
         setContentView(R.layout.activity_main);
 
         Button details = findViewById(R.id.btnDetails);
-        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries(null, null, null)));
+        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries(null, null, null, 0, 0)));
         Button dialog = findViewById(R.id.btnDialog);
         dialog.setOnClickListener(v -> presenter.addNewSeriesDialog());
     }
