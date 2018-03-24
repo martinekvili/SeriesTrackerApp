@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Series Tracker App</string>
+    <string name="dialog_new_series_title">Add New Series</string>
+    <string name="dialog_new_series_positive">OK</string>
+    <string name="dialog_new_series_negative">Cancel</string>
 </resources>
