@@ -20,6 +20,11 @@
             android:layout_height="wrap_content"
             android:text="Details"
             android:id="@+id/btnDetails" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dialog"
+            android:id="@+id/btnDialog" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

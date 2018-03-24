@@ -15,8 +15,9 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsActivity;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 
-public class MainActivity extends AppCompatActivity implements MainScreen {
+public class MainActivity extends AppCompatActivity implements MainScreen, NewSeriesDialog.NewSeriesDialogListener {
 
     @Inject
     MainPresenter presenter;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
         Button details = findViewById(R.id.btnDetails);
         details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries(null, null, null)));
+        Button dialog = findViewById(R.id.btnDialog);
+        dialog.setOnClickListener(v -> presenter.addNewSeriesDialog());
     }
 
     @Override
@@ -66,12 +69,18 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Override
     public void showAddSeriesDialog(Set<String> alreadyAddedSeries) {
-        // TODO show dialog
+        NewSeriesDialog dialog = NewSeriesDialog.newInstance(alreadyAddedSeries);
+        dialog.show(getSupportFragmentManager(), "NewSeriesDialogFragment");
     }
 
     @Override
     public void showAboutPage() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onAddNewSeries(SavedSeries series) {
+        presenter.addNewSeries(series);
     }
 }
