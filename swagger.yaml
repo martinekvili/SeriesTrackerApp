@@ -1,0 +1,367 @@
+swagger: '2.0'
+info:
+  description: >-
+    The OMDb API is a RESTful web service to obtain movie information, all
+    content and images on the site are contributed and maintained by our users. 
+  version: '1.0'
+  title: OMDb API
+  termsOfService: 'http://www.omdbapi.com/legal.htm'
+  contact:
+    email: bfritz@fadingsignal.com
+  license:
+    name: CC BY-NC 4.0
+    url: 'https://creativecommons.org/licenses/by-nc/4.0/'
+host: www.omdbapi.com
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+security:
+  - api_key: []
+tags:
+  - name: base
+    description: Base path for the API
+    externalDocs:
+      description: Find out more
+      url: 'http://www.omdbapi.com/'
+paths:
+  /:
+    get:
+      tags:
+        - base
+      summary: Find a movie resource
+      description: >-
+        Find movies or series by ID, Title or by Search. _Can only use one type
+        of find at a time (by ID, by Title or by Search)._
+      operationId: get
+      parameters:
+        - name: i
+          in: query
+          description: A valid IMDb ID (e.g. tt1285016)
+          required: false
+          type: string
+        - name: t
+          in: query
+          description: Movie title to search for.
+          required: false
+          type: string
+        - name: s
+          in: query
+          description: Movie title to search for.
+          required: false
+          type: string
+        - name: type
+          in: query
+          description: Type of result to return.
+          required: false
+          type: string
+          enum:
+            - movie
+            - series
+            - episode
+        - name: 'y'
+          in: query
+          description: Year of release.
+          required: false
+          type: integer
+          format: int32
+        - name: plot
+          in: query
+          description: Return short or full plot.
+          required: false
+          type: string
+          enum:
+            - short
+            - full
+          default: short
+        - name: r
+          in: query
+          description: The data type to return.
+          required: false
+          type: string
+          enum:
+            - json
+            - xml
+          default: json
+        - name: page
+          in: query
+          description: Page number to return.
+          required: false
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 1
+        - name: callback
+          in: query
+          description: JSONP callback name.
+          required: false
+          type: string
+        - name: v
+          in: query
+          description: API version (reserved for future use).
+          required: false
+          type: integer
+          format: int32
+          default: 1
+        - name: season
+          in: query
+          description: The season of the series to query.
+          required: false
+          type: integer
+          format: int32
+        - name: episode
+          in: query
+          description: The episode of the series to query.
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      tags:
+        - base
+      summary: Create a new movie resource
+      description: Adds a new movie or series to the database.
+      operationId: create
+      parameters:
+        - name: content
+          in: body
+          description: The movie or the series to add.
+          required: true
+          schema:
+            $ref: '#/definitions/SeriesData'
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Authorization information is missing or invalid.
+  '/{imdbID}':
+    put:
+      tags:
+        - base
+      summary: Update a movie resource
+      description: Modify attributes of an already existing movie or series.
+      operationId: update
+      parameters:
+        - name: imdbID
+          in: path
+          description: A valid IMDb ID (e.g. tt1285016)
+          required: true
+          type: string
+        - name: content
+          in: body
+          description: The movie or the series to modify.
+          required: true
+          schema:
+            $ref: '#/definitions/SeriesData'
+      responses:
+        '204':
+          description: Successful update
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: Could not find resource
+    delete:
+      tags:
+        - base
+      summary: Delete a movie resource
+      description: Delete a movie or series from the database.
+      operationId: delete
+      parameters:
+        - name: imdbID
+          in: path
+          description: A valid IMDb ID (e.g. tt1285016)
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Successful delete
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: Could not find resource
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: apikey
+    in: query
+definitions:
+  ApiResponse:
+    type: object
+    properties:
+      Response:
+        type: boolean
+      Error:
+        type: string
+      Title:
+        type: string
+      Year:
+        type: string
+      Rated:
+        type: string
+      Released:
+        type: string
+      Season:
+        type: integer
+        format: int32
+      Episode:
+        type: integer
+        format: int32
+      Runtime:
+        type: string
+      Genre:
+        type: string
+      Director:
+        type: string
+      Writer:
+        type: string
+      Actors:
+        type: string
+      Plot:
+        type: string
+      Language:
+        type: string
+      Country:
+        type: string
+      Awards:
+        type: string
+      Poster:
+        type: string
+      Ratings:
+        type: array
+        items:
+          $ref: '#/definitions/RatingData'
+      Metascore:
+        type: string
+      imdbRating:
+        type: string
+      imdbVotes:
+        type: string
+      imdbID:
+        type: string
+      seriesID:
+        type: string
+      Type:
+        type: string
+      totalSeasons:
+        type: integer
+        format: int32
+      Episodes:
+        type: array
+        items:
+          $ref: '#/definitions/EpisodeData'
+      Search:
+        type: array
+        items:
+          $ref: '#/definitions/SearchItem'
+      totalResults:
+        type: integer
+        format: int32
+  RatingData:
+    type: object
+    properties:
+      Source:
+        type: string
+      Value:
+        type: string
+  EpisodeData:
+    type: object
+    properties:
+      Title:
+        type: string
+      Released:
+        type: string
+      Episode:
+        type: integer
+        format: int32
+      imdbRating:
+        type: string
+      imdbID:
+        type: string
+  SearchItem:
+    type: object
+    properties:
+      Title:
+        type: string
+      Year:
+        type: string
+      imdbID:
+        type: string
+      Type:
+        type: string
+      Poster:
+        type: string
+  ErrorResponse:
+    type: object
+    properties:
+      Response:
+        type: boolean
+      Error:
+        type: string
+  SeriesData:
+    type: object
+    properties:
+      Title:
+        type: string
+      Year:
+        type: string
+      Rated:
+        type: string
+      Released:
+        type: string
+      Season:
+        type: integer
+        format: int32
+      Episode:
+        type: integer
+        format: int32
+      Runtime:
+        type: string
+      Genre:
+        type: string
+      Director:
+        type: string
+      Writer:
+        type: string
+      Actors:
+        type: string
+      Plot:
+        type: string
+      Language:
+        type: string
+      Country:
+        type: string
+      Awards:
+        type: string
+      Poster:
+        type: string
+      Ratings:
+        type: array
+        items:
+          $ref: '#/definitions/RatingData'
+      Metascore:
+        type: string
+      imdbRating:
+        type: string
+      imdbVotes:
+        type: string
+      imdbID:
+        type: string
+      seriesID:
+        type: string
+      Type:
+        type: string
+      totalSeasons:
+        type: integer
+        format: int32
