@@ -3,9 +3,6 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.main;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;

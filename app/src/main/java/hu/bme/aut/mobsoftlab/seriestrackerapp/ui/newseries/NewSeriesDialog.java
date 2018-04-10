@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 
 import java.util.Arrays;
@@ -19,7 +18,6 @@ import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 
 public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
 
@@ -79,8 +77,7 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
         AlertDialog dialog = (AlertDialog) getDialog();
@@ -124,7 +121,7 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
         NewSeriesDialog fragment = new NewSeriesDialog();
 
         Bundle args = new Bundle();
-        args.putStringArray(ARG_ALREADY_ADDED_SERIES, alreadyAddedSeries.toArray(new String[] {}));
+        args.putStringArray(ARG_ALREADY_ADDED_SERIES, alreadyAddedSeries.toArray(new String[]{}));
         fragment.setArguments(args);
 
         return fragment;

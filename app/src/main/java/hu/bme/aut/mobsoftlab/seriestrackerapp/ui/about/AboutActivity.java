@@ -1,7 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 

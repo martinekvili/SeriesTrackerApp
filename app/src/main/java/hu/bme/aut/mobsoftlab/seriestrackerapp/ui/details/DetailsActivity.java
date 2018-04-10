@@ -1,14 +1,14 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsScreen {
 

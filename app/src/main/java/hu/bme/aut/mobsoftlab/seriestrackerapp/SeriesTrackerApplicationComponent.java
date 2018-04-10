@@ -20,21 +20,28 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesPresenter;
 
 @Singleton
-@Component(modules = { UIModule.class, InteractorModule.class, DatabaseModule.class, NetworkModule.class })
+@Component(modules = {UIModule.class, InteractorModule.class, DatabaseModule.class, NetworkModule.class})
 public interface SeriesTrackerApplicationComponent {
 
     void inject(MainActivity mainActivity);
+
     void inject(MainPresenter mainPresenter);
+
     void inject(MainInteractor mainInteractor);
 
     void inject(AboutActivity aboutActivity);
+
     void inject(AboutPresenter aboutPresenter);
-    
+
     void inject(DetailsActivity detailsActivity);
+
     void inject(DetailsPresenter detailsPresenter);
+
     void inject(DetailsInteractor detailsInteractor);
 
     void inject(NewSeriesDialog newSeriesDialog);
+
     void inject(NewSeriesPresenter newSeriesPresenter);
+
     void inject(NewSeriesInteractor newSeriesInteractor);
 }

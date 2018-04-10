@@ -23,7 +23,7 @@ public class UIModule {
     public AboutPresenter provideAboutPresenter() {
         return new AboutPresenter();
     }
-    
+
     @Provides
     public DetailsPresenter provideDetailsPresenter() {
         return new DetailsPresenter();

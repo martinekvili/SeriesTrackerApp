@@ -19,7 +19,7 @@ public class InteractorModule {
     public AboutInteractor provideAboutInteractor() {
         return new AboutInteractor();
     }
-    
+
     @Provides
     public DetailsInteractor provideDetailsInteractor() {
         return new DetailsInteractor();
