@@ -17,7 +17,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 
-public class MainActivity extends AppCompatActivity implements MainScreen, NewSeriesDialog.NewSeriesDialogListener {
+public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Inject
     MainPresenter presenter;
@@ -77,10 +77,5 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
     public void showAboutPage() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onAddNewSeries(SavedSeries series) {
-        presenter.addNewSeries(series);
     }
 }

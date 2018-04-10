@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetAlreadyAddedSeriesIDsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetSeriesListEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.PresenterWithEvents;
@@ -26,28 +27,18 @@ public class MainPresenter extends PresenterWithEvents<MainScreen> {
     @Inject
     MainInteractor interactor;
 
-    /**
-     * Caches the saves series so they are not read from the database every time.
-     */
-    private List<SavedSeries> savedSeries;
-
     public MainPresenter() {
         SeriesTrackerApplication.injector.inject(this);
     }
 
     public void getSeriesList() {
-        if (savedSeries != null)
-            screen.showSeriesList(savedSeries);
-        else
-            databaseExecutor.execute(() -> interactor.getSeriesList());
+        databaseExecutor.execute(() -> interactor.getSeriesList());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGetSeriesListEvent(final GetSeriesListEvent event) {
-        savedSeries = event.getSeries();
-
         if (screen != null)
-            screen.showSeriesList(savedSeries);
+            screen.showSeriesList(event.getSeries());
     }
 
     public void selectSeries(SavedSeries series) {
@@ -55,18 +46,13 @@ public class MainPresenter extends PresenterWithEvents<MainScreen> {
     }
 
     public void addNewSeriesDialog() {
-        Set<String> alreadyAddedSeries = new HashSet<>();
-        for (SavedSeries series : savedSeries)
-            alreadyAddedSeries.add(series.getImdbID());
-
-        screen.showAddSeriesDialog(alreadyAddedSeries);
+        databaseExecutor.execute(() -> interactor.getAlreadyAddedSeriesIDs());
     }
 
-    public void addNewSeries(SavedSeries series) {
-        savedSeries.add(series);
-        screen.showSeriesList(savedSeries);
-
-        databaseExecutor.execute(() -> interactor.addNewSeries(series));
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetAlreadyAddedSeriesIDsEvent(final GetAlreadyAddedSeriesIDsEvent event) {
+        if (screen != null)
+            screen.showAddSeriesDialog(event.getAlreadyAddedSeriesIDs());
     }
 
     public void selectAboutPage() {

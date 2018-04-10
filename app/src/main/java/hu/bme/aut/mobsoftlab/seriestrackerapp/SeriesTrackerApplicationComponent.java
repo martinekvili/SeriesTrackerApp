@@ -5,6 +5,9 @@ import javax.inject.Singleton;
 import dagger.Component;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.database.DatabaseModule;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.InteractorModule;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.NetworkModule;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.UIModule;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
@@ -22,13 +25,16 @@ public interface SeriesTrackerApplicationComponent {
 
     void inject(MainActivity mainActivity);
     void inject(MainPresenter mainPresenter);
+    void inject(MainInteractor mainInteractor);
 
     void inject(AboutActivity aboutActivity);
     void inject(AboutPresenter aboutPresenter);
     
     void inject(DetailsActivity detailsActivity);
     void inject(DetailsPresenter detailsPresenter);
+    void inject(DetailsInteractor detailsInteractor);
 
     void inject(NewSeriesDialog newSeriesDialog);
     void inject(NewSeriesPresenter newSeriesPresenter);
+    void inject(NewSeriesInteractor newSeriesInteractor);
 }

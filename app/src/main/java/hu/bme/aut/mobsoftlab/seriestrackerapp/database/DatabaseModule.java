@@ -18,4 +18,10 @@ public class DatabaseModule {
     public Executor provideDatabaseExecutor() {
         return Executors.newCachedThreadPool();
     }
+
+    @Provides
+    @Singleton
+    public ISavedSeriesDAL provideSavedSeriesDAL() {
+        return new SavedSeriesDAL();
+    }
 }
