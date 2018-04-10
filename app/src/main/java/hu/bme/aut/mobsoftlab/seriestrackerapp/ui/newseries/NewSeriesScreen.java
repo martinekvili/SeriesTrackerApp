@@ -21,4 +21,10 @@ public interface NewSeriesScreen {
      * @param episodeCount The max episode count.
      */
     void setEpisodeCount(int episodeCount);
+
+    /**
+     * Shows a network error message.
+     * @param errorMessage The error message to show.
+     */
+    void showNetworkErrorMessage(String errorMessage);
 }

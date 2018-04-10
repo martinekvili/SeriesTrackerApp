@@ -61,7 +61,7 @@ public interface BaseApi {
     @Headers({
             "Content-Type:application/json"
     })
-    @GET("")
+    @GET(".")
     Call<ModelApiResponse> get(
             @retrofit2.http.Query("i") String i, @retrofit2.http.Query("t") String t, @retrofit2.http.Query("s") String s, @retrofit2.http.Query("type") String type, @retrofit2.http.Query("y") Integer y, @retrofit2.http.Query("plot") String plot, @retrofit2.http.Query("r") String r, @retrofit2.http.Query("page") Integer page, @retrofit2.http.Query("callback") String paramCallback, @retrofit2.http.Query("v") Integer v, @retrofit2.http.Query("season") Integer season, @retrofit2.http.Query("episode") Integer episode
     );

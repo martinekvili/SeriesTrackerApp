@@ -113,6 +113,11 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
         // TODO set UI
     }
 
+    @Override
+    public void showNetworkErrorMessage(String errorMessage) {
+        // TODO set UI
+    }
+
     public static NewSeriesDialog newInstance(Set<String> alreadyAddedSeries) {
         NewSeriesDialog fragment = new NewSeriesDialog();
 

@@ -7,12 +7,11 @@ public class EpisodeDetails implements Parcelable {
 
     private final String plot;
     private final String imdbRating;
-    private final boolean isLastEpisode;
+    private boolean isLastEpisode;
 
-    public EpisodeDetails(String plot, String imdbRating, boolean isLastEpisode) {
+    public EpisodeDetails(String plot, String imdbRating) {
         this.plot = plot;
         this.imdbRating = imdbRating;
-        this.isLastEpisode = isLastEpisode;
     }
 
     public String getPlot() {
@@ -25,6 +24,10 @@ public class EpisodeDetails implements Parcelable {
 
     public boolean isLastEpisode() {
         return isLastEpisode;
+    }
+
+    public void setLastEpisode(boolean lastEpisode) {
+        isLastEpisode = lastEpisode;
     }
 
     // region Parcelable implementation

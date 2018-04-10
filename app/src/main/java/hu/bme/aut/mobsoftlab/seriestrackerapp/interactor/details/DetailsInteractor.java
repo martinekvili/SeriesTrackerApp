@@ -2,20 +2,70 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.GetSeriesDetailsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.StepToNextEpisodeEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
 
 public class DetailsInteractor {
 
+    @Inject
+    IOmdbClient omdbClient;
+
+    public DetailsInteractor() {
+        SeriesTrackerApplication.injector.inject(this);
+    }
+
     public void getEpisodeDetails(SavedSeries series) {
-        // TODO get the current episode (+ season to determine whether this episode is the last)
-        EventBus.getDefault().post(new GetSeriesDetailsEvent(new EpisodeDetails(null, null, false)));
+        try {
+            EpisodeDetails episodeDetails = omdbClient.getEpisodeDetails(series.getImdbID(), series.getSeason(), series.getEpisode());
+
+            SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(series.getImdbID(), series.getSeason());
+            episodeDetails.setLastEpisode(isLastEpisode(series, count));
+
+            EventBus.getDefault().post(new GetSeriesDetailsEvent(episodeDetails));
+        } catch (IOException e) {
+            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+        }
     }
 
     public void stepToNextEpisode(SavedSeries series) {
-        // TODO get the current season (episodes, is there next season), and modify the current episode accordingly; get the new current episode
-        EventBus.getDefault().post(new StepToNextEpisodeEvent(series, new EpisodeDetails(null, null, false)));
+        try {
+            SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(series.getImdbID(), series.getSeason());
+
+            boolean isLastEpisode;
+            if (series.getEpisode() < count.getEpisodesInSeason()) {    // there are still more episodes in the season
+                series.setEpisode(series.getEpisode() + 1);
+                isLastEpisode = isLastEpisode(series, count);
+            } else if (series.getSeason() < count.getTotalSeasons()) {  // there are more seasons
+                series.setSeason(series.getSeason() + 1);
+                series.setEpisode(1);
+
+                // Assume that there are still more episodes, since not many series have only one episode in a season.
+                // This is an intentional optimization here to save us a third round-trip to the API.
+                isLastEpisode = false;
+            } else {                                                    // this is the last episode
+                isLastEpisode = true;
+            }
+
+            EpisodeDetails episodeDetails = omdbClient.getEpisodeDetails(series.getImdbID(), series.getSeason(), series.getEpisode());
+            episodeDetails.setLastEpisode(isLastEpisode);
+
+            EventBus.getDefault().post(new StepToNextEpisodeEvent(series, episodeDetails));
+        } catch (IOException e) {
+            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+        }
+    }
+
+    private boolean isLastEpisode(SavedSeries series, SeasonsAndEpisodesCount count) {
+        return series.getSeason() == count.getTotalSeasons() && series.getEpisode() == count.getEpisodesInSeason();
     }
 }

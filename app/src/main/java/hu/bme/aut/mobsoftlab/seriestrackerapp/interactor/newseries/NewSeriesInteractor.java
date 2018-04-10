@@ -2,27 +2,53 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetSeasonAndEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesSearchResult;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
 
 public class NewSeriesInteractor {
 
+    @Inject
+    IOmdbClient omdbClient;
+
+    public NewSeriesInteractor() {
+        SeriesTrackerApplication.injector.inject(this);
+    }
+
     public List<SeriesSearchResult> getSearchResults(String prefix) {
-        // TODO get series search results from API
-        return new ArrayList<>();
+        try {
+            return omdbClient.getSeriesSearchResult(prefix);
+        } catch (IOException e) {
+            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+            return new ArrayList<>();
+        }
     }
 
     public void getSeasonAndEpisodeCount(String imdbID) {
-        // TODO get the details for the first season of the series (gives total season count and number of episodes in first season)
-        EventBus.getDefault().post(new GetSeasonAndEpisodeCountEvent(0, 0));
+        try {
+            SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(imdbID, 1);
+            EventBus.getDefault().post(new GetSeasonAndEpisodeCountEvent(count.getTotalSeasons(), count.getEpisodesInSeason()));
+        } catch (IOException e) {
+            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+        }
     }
 
     public void getEpisodeCount(String imdbID, int season) {
-        // TODO get the details for the given season of the series for the number of episodes
-        EventBus.getDefault().post(new GetEpisodeCountEvent(0));
+        try {
+            SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(imdbID, season);
+            EventBus.getDefault().post(new GetEpisodeCountEvent(count.getEpisodesInSeason()));
+        } catch (IOException e) {
+            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+        }
     }
 }
