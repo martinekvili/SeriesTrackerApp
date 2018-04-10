@@ -135,28 +135,6 @@ public class SearchItem {
 
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SearchItem searchItem = (SearchItem) o;
-        return Objects.equals(this.title, searchItem.title) &&
-                Objects.equals(this.year, searchItem.year) &&
-                Objects.equals(this.imdbID, searchItem.imdbID) &&
-                Objects.equals(this.type, searchItem.type) &&
-                Objects.equals(this.poster, searchItem.poster);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, year, imdbID, type, poster);
-    }
-
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class SearchItem {\n");

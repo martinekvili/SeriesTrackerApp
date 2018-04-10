@@ -69,25 +69,6 @@ public class ErrorResponse {
 
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ErrorResponse errorResponse = (ErrorResponse) o;
-        return Objects.equals(this.response, errorResponse.response) &&
-                Objects.equals(this.error, errorResponse.error);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(response, error);
-    }
-
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class ErrorResponse {\n");

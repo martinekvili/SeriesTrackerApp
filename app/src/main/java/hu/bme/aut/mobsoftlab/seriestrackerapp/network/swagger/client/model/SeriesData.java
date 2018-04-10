@@ -563,47 +563,6 @@ public class SeriesData {
 
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SeriesData seriesData = (SeriesData) o;
-        return Objects.equals(this.title, seriesData.title) &&
-                Objects.equals(this.year, seriesData.year) &&
-                Objects.equals(this.rated, seriesData.rated) &&
-                Objects.equals(this.released, seriesData.released) &&
-                Objects.equals(this.season, seriesData.season) &&
-                Objects.equals(this.episode, seriesData.episode) &&
-                Objects.equals(this.runtime, seriesData.runtime) &&
-                Objects.equals(this.genre, seriesData.genre) &&
-                Objects.equals(this.director, seriesData.director) &&
-                Objects.equals(this.writer, seriesData.writer) &&
-                Objects.equals(this.actors, seriesData.actors) &&
-                Objects.equals(this.plot, seriesData.plot) &&
-                Objects.equals(this.language, seriesData.language) &&
-                Objects.equals(this.country, seriesData.country) &&
-                Objects.equals(this.awards, seriesData.awards) &&
-                Objects.equals(this.poster, seriesData.poster) &&
-                Objects.equals(this.ratings, seriesData.ratings) &&
-                Objects.equals(this.metascore, seriesData.metascore) &&
-                Objects.equals(this.imdbRating, seriesData.imdbRating) &&
-                Objects.equals(this.imdbVotes, seriesData.imdbVotes) &&
-                Objects.equals(this.imdbID, seriesData.imdbID) &&
-                Objects.equals(this.seriesID, seriesData.seriesID) &&
-                Objects.equals(this.type, seriesData.type) &&
-                Objects.equals(this.totalSeasons, seriesData.totalSeasons);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, year, rated, released, season, episode, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, metascore, imdbRating, imdbVotes, imdbID, seriesID, type, totalSeasons);
-    }
-
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class SeriesData {\n");

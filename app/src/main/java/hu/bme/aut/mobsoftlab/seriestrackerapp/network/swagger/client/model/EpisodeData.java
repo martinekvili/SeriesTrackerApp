@@ -135,28 +135,6 @@ public class EpisodeData {
 
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        EpisodeData episodeData = (EpisodeData) o;
-        return Objects.equals(this.title, episodeData.title) &&
-                Objects.equals(this.released, episodeData.released) &&
-                Objects.equals(this.episode, episodeData.episode) &&
-                Objects.equals(this.imdbRating, episodeData.imdbRating) &&
-                Objects.equals(this.imdbID, episodeData.imdbID);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, released, episode, imdbRating, imdbID);
-    }
-
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class EpisodeData {\n");

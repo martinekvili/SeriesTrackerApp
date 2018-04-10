@@ -689,52 +689,6 @@ public class ModelApiResponse {
 
 
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ModelApiResponse _apiResponse = (ModelApiResponse) o;
-        return Objects.equals(this.response, _apiResponse.response) &&
-                Objects.equals(this.error, _apiResponse.error) &&
-                Objects.equals(this.title, _apiResponse.title) &&
-                Objects.equals(this.year, _apiResponse.year) &&
-                Objects.equals(this.rated, _apiResponse.rated) &&
-                Objects.equals(this.released, _apiResponse.released) &&
-                Objects.equals(this.season, _apiResponse.season) &&
-                Objects.equals(this.episode, _apiResponse.episode) &&
-                Objects.equals(this.runtime, _apiResponse.runtime) &&
-                Objects.equals(this.genre, _apiResponse.genre) &&
-                Objects.equals(this.director, _apiResponse.director) &&
-                Objects.equals(this.writer, _apiResponse.writer) &&
-                Objects.equals(this.actors, _apiResponse.actors) &&
-                Objects.equals(this.plot, _apiResponse.plot) &&
-                Objects.equals(this.language, _apiResponse.language) &&
-                Objects.equals(this.country, _apiResponse.country) &&
-                Objects.equals(this.awards, _apiResponse.awards) &&
-                Objects.equals(this.poster, _apiResponse.poster) &&
-                Objects.equals(this.ratings, _apiResponse.ratings) &&
-                Objects.equals(this.metascore, _apiResponse.metascore) &&
-                Objects.equals(this.imdbRating, _apiResponse.imdbRating) &&
-                Objects.equals(this.imdbVotes, _apiResponse.imdbVotes) &&
-                Objects.equals(this.imdbID, _apiResponse.imdbID) &&
-                Objects.equals(this.seriesID, _apiResponse.seriesID) &&
-                Objects.equals(this.type, _apiResponse.type) &&
-                Objects.equals(this.totalSeasons, _apiResponse.totalSeasons) &&
-                Objects.equals(this.episodes, _apiResponse.episodes) &&
-                Objects.equals(this.search, _apiResponse.search) &&
-                Objects.equals(this.totalResults, _apiResponse.totalResults);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(response, error, title, year, rated, released, season, episode, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, metascore, imdbRating, imdbVotes, imdbID, seriesID, type, totalSeasons, episodes, search, totalResults);
-    }
-
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class ModelApiResponse {\n");
