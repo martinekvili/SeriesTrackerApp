@@ -28,7 +28,7 @@ public class SavedSeriesDAL implements ISavedSeriesDAL {
 
     @Override
     public List<SavedSeries> getSavedSeries() {
-        if (savedSeriesCache != null)
+        if (savedSeriesCache == null)
             initSavedSeriesCache();
 
         return new ArrayList<>(savedSeriesCache.values());
@@ -36,7 +36,7 @@ public class SavedSeriesDAL implements ISavedSeriesDAL {
 
     @Override
     public Set<String> getAlreadyAddedSeriesIDs() {
-        if (savedSeriesCache != null)
+        if (savedSeriesCache == null)
             initSavedSeriesCache();
 
         return savedSeriesCache.keySet();
