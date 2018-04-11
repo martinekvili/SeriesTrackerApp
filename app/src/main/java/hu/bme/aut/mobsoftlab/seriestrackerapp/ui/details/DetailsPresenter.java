@@ -9,8 +9,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.GetSeriesDetailsEvent;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.SavedSeriesUpdatedEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.StepToNextEpisodeEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.PresenterWithEvents;
 
@@ -19,6 +21,10 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
     @Inject
     @Named("NetworkExecutor")
     Executor networkExecutor;
+
+    @Inject
+    @Named("DatabaseExecutor")
+    Executor databaseExecutor;
 
     @Inject
     DetailsInteractor interactor;
@@ -64,6 +70,11 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
         state.setSeries(event.getSeries());
         state.setDetails(event.getDetails());
 
+        databaseExecutor.execute(() -> interactor.updateSavedSeries(state.getSeries()));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSavedSeriesUpdatedEvent(final SavedSeriesUpdatedEvent event) {
         if (screen != null) {
             screen.showSeries(state.getSeries());
             screen.showEpisodeDetails(state.getDetails());
@@ -72,5 +83,11 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
 
     public void navigateBack() {
         screen.navigateBack();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetworkErrorEvent(final NetworkErrorEvent event) {
+        if (screen != null)
+            screen.showNetworkErrorMessage(event.getErrorMessage());
     }
 }

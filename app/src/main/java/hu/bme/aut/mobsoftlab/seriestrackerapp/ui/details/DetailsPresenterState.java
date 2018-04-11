@@ -3,8 +3,8 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 
 public class DetailsPresenterState implements Parcelable {
 

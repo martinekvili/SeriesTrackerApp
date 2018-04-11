@@ -12,9 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetSeasonAndEpisodeCountEvent;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.NewSeriesAddedEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesSearchResult;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.PresenterWithEvents;
@@ -23,7 +25,11 @@ public class NewSeriesPresenter extends PresenterWithEvents<NewSeriesScreen> {
 
     @Inject
     @Named("NetworkExecutor")
-    Executor executor;
+    Executor networkExecutor;
+
+    @Inject
+    @Named("DatabaseExecutor")
+    Executor databaseExecutor;
 
     @Inject
     NewSeriesInteractor interactor;
@@ -59,7 +65,7 @@ public class NewSeriesPresenter extends PresenterWithEvents<NewSeriesScreen> {
 
     public void chooseSeries(SeriesSearchResult searchResult) {
         series = new SavedSeries(searchResult);
-        executor.execute(() -> interactor.getSeasonAndEpisodeCount(series.getImdbID()));
+        networkExecutor.execute(() -> interactor.getSeasonAndEpisodeCount(series.getImdbID()));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -72,7 +78,7 @@ public class NewSeriesPresenter extends PresenterWithEvents<NewSeriesScreen> {
 
     public void chooseSeason(int season) {
         series.setSeason(season);
-        executor.execute(() -> interactor.getEpisodeCount(series.getImdbID(), series.getSeason()));
+        networkExecutor.execute(() -> interactor.getEpisodeCount(series.getImdbID(), series.getSeason()));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -86,6 +92,18 @@ public class NewSeriesPresenter extends PresenterWithEvents<NewSeriesScreen> {
     }
 
     public void addNewSeries() {
-        screen.onAddNewSeries(series);
+        databaseExecutor.execute(() -> interactor.addNewSeries(series));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewSeriesAddedEvent(final NewSeriesAddedEvent event) {
+        if (screen != null)
+            screen.dismissDialog();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetworkErrorEvent(final NetworkErrorEvent event) {
+        if (screen != null)
+            screen.showNetworkErrorMessage(event.getErrorMessage());
     }
 }

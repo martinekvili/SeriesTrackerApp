@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -17,7 +18,6 @@ import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 
 public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
 
@@ -25,7 +25,6 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
 
     @Inject
     NewSeriesPresenter presenter;
-    private NewSeriesDialogListener listener;
 
     public NewSeriesDialog() {
         setRetainInstance(true);
@@ -35,19 +34,12 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if (context instanceof NewSeriesDialogListener)
-            listener = (NewSeriesDialogListener) context;
-        else
-            throw new RuntimeException(context.toString() + " must implement NewSeriesDialogListener");
-
         presenter.attachScreen(this);
     }
 
     @Override
     public void onDetach() {
         presenter.detachScreen();
-        listener = null;
         super.onDetach();
     }
 
@@ -67,7 +59,7 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
         builder.setView(inflater.inflate(R.layout.dialog_new_series, null))
                 .setTitle(R.string.dialog_new_series_title)
                 // Add action buttons
-                .setPositiveButton(R.string.dialog_new_series_positive, (dialog, which) -> presenter.addNewSeries())
+                .setPositiveButton(R.string.dialog_new_series_positive, null)
                 .setNegativeButton(R.string.dialog_new_series_negative, (dialog, which) -> dialog.dismiss());
         return builder.create();
     }
@@ -82,6 +74,18 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
 
         presenter.initialize(new HashSet<>(Arrays.asList(alreadyAddedSeries)));
         return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        AlertDialog dialog = (AlertDialog) getDialog();
+        if (dialog == null)
+            return;
+
+        Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(view -> presenter.addNewSeries());
     }
 
     /**
@@ -99,11 +103,6 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     }
 
     @Override
-    public void onAddNewSeries(SavedSeries savedSeries) {
-        listener.onAddNewSeries(savedSeries);
-    }
-
-    @Override
     public void setSeasonCount(int seasonCount) {
         // TODO set UI
     }
@@ -112,22 +111,25 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     public void setEpisodeCount(int episodeCount) {
         // TODO set UI
     }
+    
+        
+    @Override
+    public void showNetworkErrorMessage(String errorMessage) {
+        // TODO set UI
+    }
+
+    @Override
+    public void dismissDialog() {
+        dismiss();
+    }
 
     public static NewSeriesDialog newInstance(Set<String> alreadyAddedSeries) {
         NewSeriesDialog fragment = new NewSeriesDialog();
 
         Bundle args = new Bundle();
-        args.putStringArray(ARG_ALREADY_ADDED_SERIES, alreadyAddedSeries.toArray(new String[] {}));
+        args.putStringArray(ARG_ALREADY_ADDED_SERIES, alreadyAddedSeries.toArray(new String[]{}));
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    /**
-     * This interface must be implemented by activities that use this dialog
-     * to allow interaction in this fragment to be communicated to the activity.
-     */
-    public interface NewSeriesDialogListener {
-        void onAddNewSeries(SavedSeries series);
     }
 }

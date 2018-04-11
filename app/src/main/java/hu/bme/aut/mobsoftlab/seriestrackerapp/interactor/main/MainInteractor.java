@@ -2,19 +2,27 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
 
+import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.database.ISavedSeriesDAL;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetAlreadyAddedSeriesIDsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetSeriesListEvent;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 
 public class MainInteractor {
 
-    public void getSeriesList() {
-        // TODO read saved series from database
-        EventBus.getDefault().post(new GetSeriesListEvent(new ArrayList<>()));
+    @Inject
+    ISavedSeriesDAL savedSeriesDAL;
+
+    public MainInteractor() {
+        SeriesTrackerApplication.injector.inject(this);
     }
 
-    public void addNewSeries(SavedSeries series) {
-        // TODO save new series to database
+    public void getSeriesList() {
+        EventBus.getDefault().post(new GetSeriesListEvent(savedSeriesDAL.getSavedSeries()));
+    }
+
+    public void getAlreadyAddedSeriesIDs() {
+        EventBus.getDefault().post(new GetAlreadyAddedSeriesIDsEvent(savedSeriesDAL.getAlreadyAddedSeriesIDs()));
     }
 }

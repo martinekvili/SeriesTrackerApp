@@ -4,6 +4,7 @@ public interface AboutScreen {
 
     /**
      * Shows the application version on the UI.
+     *
      * @param versionName The application version.
      */
     void showVersionName(String versionName);

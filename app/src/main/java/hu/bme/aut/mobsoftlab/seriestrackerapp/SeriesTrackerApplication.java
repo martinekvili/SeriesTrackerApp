@@ -1,8 +1,8 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp;
 
-import android.app.Application;
+import com.orm.SugarApp;
 
-public class SeriesTrackerApplication extends Application {
+public class SeriesTrackerApplication extends SugarApp {
 
     public static SeriesTrackerApplicationComponent injector;
 

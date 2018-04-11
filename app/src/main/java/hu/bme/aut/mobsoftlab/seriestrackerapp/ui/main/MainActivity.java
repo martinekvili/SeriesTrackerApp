@@ -1,8 +1,8 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.main;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 
-public class MainActivity extends AppCompatActivity implements MainScreen, NewSeriesDialog.NewSeriesDialogListener {
+public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Inject
     MainPresenter presenter;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
         setContentView(R.layout.activity_main);
 
         Button details = findViewById(R.id.btnDetails);
-        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries(null, null, null, 0, 0)));
+        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries("tt0460649", "How I Met Your Mother", null, 9, 24)));
         Button dialog = findViewById(R.id.btnDialog);
         dialog.setOnClickListener(v -> presenter.addNewSeriesDialog());
     }
@@ -77,10 +77,5 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
     public void showAboutPage() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onAddNewSeries(SavedSeries series) {
-        presenter.addNewSeries(series);
     }
 }
