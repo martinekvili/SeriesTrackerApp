@@ -17,6 +17,12 @@ public interface NewSeriesScreen {
     void setEpisodeCount(int episodeCount);
 
     /**
+     * Shows a network error message.
+     * @param errorMessage The error message to show.
+     */
+    void showNetworkErrorMessage(String errorMessage);
+    
+    /**
      * Dismisses the dialog.
      */
     void dismissDialog();

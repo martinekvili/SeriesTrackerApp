@@ -111,6 +111,12 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     public void setEpisodeCount(int episodeCount) {
         // TODO set UI
     }
+    
+        
+    @Override
+    public void showNetworkErrorMessage(String errorMessage) {
+        // TODO set UI
+    }
 
     @Override
     public void dismissDialog() {

@@ -9,6 +9,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteract
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.NetworkModule;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.network.OmdbClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.UIModule;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutPresenter;
@@ -44,4 +45,6 @@ public interface SeriesTrackerApplicationComponent {
     void inject(NewSeriesPresenter newSeriesPresenter);
 
     void inject(NewSeriesInteractor newSeriesInteractor);
+    
+    void inject(OmdbClient omdbClient);
 }

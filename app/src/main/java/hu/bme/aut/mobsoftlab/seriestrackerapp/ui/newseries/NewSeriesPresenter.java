@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetSeasonAndEpisodeCountEvent;
@@ -98,5 +99,11 @@ public class NewSeriesPresenter extends PresenterWithEvents<NewSeriesScreen> {
     public void onNewSeriesAddedEvent(final NewSeriesAddedEvent event) {
         if (screen != null)
             screen.dismissDialog();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetworkErrorEvent(final NetworkErrorEvent event) {
+        if (screen != null)
+            screen.showNetworkErrorMessage(event.getErrorMessage());
     }
 }

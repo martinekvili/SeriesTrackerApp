@@ -77,4 +77,9 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
     public void navigateBack() {
         finish();
     }
+
+    @Override
+    public void showNetworkErrorMessage(String errorMessage) {
+        // TODO set UI
+    }
 }

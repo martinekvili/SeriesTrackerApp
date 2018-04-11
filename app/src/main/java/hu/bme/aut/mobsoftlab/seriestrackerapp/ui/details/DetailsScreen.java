@@ -23,4 +23,10 @@ public interface DetailsScreen {
      * Navigates back to the main page.
      */
     void navigateBack();
+
+    /**
+     * Shows a network error message.
+     * @param errorMessage The error message to show.
+     */
+    void showNetworkErrorMessage(String errorMessage);
 }

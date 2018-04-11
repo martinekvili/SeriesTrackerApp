@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.GetSeriesDetailsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.SavedSeriesUpdatedEvent;
@@ -82,5 +83,11 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
 
     public void navigateBack() {
         screen.navigateBack();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetworkErrorEvent(final NetworkErrorEvent event) {
+        if (screen != null)
+            screen.showNetworkErrorMessage(event.getErrorMessage());
     }
 }
