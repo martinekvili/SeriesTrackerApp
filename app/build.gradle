@@ -69,6 +69,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    mockImplementation "com.squareup.retrofit2:retrofit-mock:$retrofit_version"
     implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
     implementation "io.gsonfire:gson-fire:$json_fire_version"
     implementation "org.threeten:threetenbp:$threetenbp_version"
