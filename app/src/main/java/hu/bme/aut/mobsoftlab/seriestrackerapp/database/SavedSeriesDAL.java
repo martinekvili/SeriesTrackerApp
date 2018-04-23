@@ -3,6 +3,8 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.database;
 import com.orm.SugarRecord;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,10 @@ public class SavedSeriesDAL implements ISavedSeriesDAL {
         if (savedSeriesCache == null)
             initSavedSeriesCache();
 
-        return new ArrayList<>(savedSeriesCache.values());
+        List<SavedSeries> result = new ArrayList<>(savedSeriesCache.values());
+        Collections.sort(result, (one, other) -> one.getTitle().compareTo(other.getTitle()));
+
+        return result;
     }
 
     @Override

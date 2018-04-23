@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -19,7 +21,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     NavigationView navigationView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    private SeriesAdapter seriesAdapter;
 
     private MenuItem mainMenuItem;
 
@@ -74,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         });
 
         fab.setOnClickListener(v -> presenter.addNewSeriesDialog());
+
+        recyclerView.setHasFixedSize(true);
+        seriesAdapter = new SeriesAdapter(selectedSeries -> presenter.selectSeries(selectedSeries));
+        recyclerView.setAdapter(seriesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Override
     public void showSeriesList(List<SavedSeries> savedSeries) {
-        // TODO set UI
+        seriesAdapter.setSeries(savedSeries);
     }
 
     @Override
