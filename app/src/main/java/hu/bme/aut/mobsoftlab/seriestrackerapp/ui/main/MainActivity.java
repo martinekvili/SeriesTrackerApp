@@ -2,6 +2,7 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
+    private MenuItem mainMenuItem;
 
     public MainActivity() {
         SeriesTrackerApplication.injector.inject(this);
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        mainMenuItem = navigationView.getMenu().findItem(R.id.nav_main);
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             // set item as selected to persist highlight
             menuItem.setChecked(true);
@@ -66,10 +73,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
             return true;
         });
 
-        Button details = findViewById(R.id.btnDetails);
-        details.setOnClickListener(v -> presenter.selectSeries(new SavedSeries("tt0460649", "How I Met Your Mother", null, 9, 24)));
-        Button dialog = findViewById(R.id.btnDialog);
-        dialog.setOnClickListener(v -> presenter.addNewSeriesDialog());
+        fab.setOnClickListener(v -> presenter.addNewSeriesDialog());
     }
 
     @Override
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     @Override
     protected void onResume() {
         super.onResume();
+        mainMenuItem.setChecked(true);
         presenter.getSeriesList();
     }
 

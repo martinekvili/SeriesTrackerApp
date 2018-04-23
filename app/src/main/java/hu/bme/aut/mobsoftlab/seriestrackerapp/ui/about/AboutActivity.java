@@ -28,6 +28,8 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    MenuItem aboutMenuItem;
+
     public AboutActivity() {
         SeriesTrackerApplication.injector.inject(this);
     }
@@ -45,6 +47,7 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        aboutMenuItem = navigationView.getMenu().findItem(R.id.nav_about);
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             // set item as selected to persist highlight
             menuItem.setChecked(true);
@@ -83,6 +86,7 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
     @Override
     protected void onResume() {
         super.onResume();
+        aboutMenuItem.setChecked(true);
         presenter.getVersionName();
     }
 
