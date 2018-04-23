@@ -36,6 +36,12 @@ public class MockSavedSeriesDAL implements ISavedSeriesDAL {
         List<SavedSeries> result = new ArrayList<>(database.values());
         Collections.sort(result, (one, other) -> one.getTitle().compareTo(other.getTitle()));
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return result;
     }
 

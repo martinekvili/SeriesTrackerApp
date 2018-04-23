@@ -12,7 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Set;
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     FloatingActionButton fab;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.emptyRecyclerView)
+    TextView emptyRecyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private SeriesAdapter seriesAdapter;
 
@@ -111,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     @Override
     protected void onResume() {
         super.onResume();
+
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        emptyRecyclerView.setVisibility(View.GONE);
+
         mainMenuItem.setChecked(true);
         presenter.getSeriesList();
     }
@@ -118,6 +130,16 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     @Override
     public void showSeriesList(List<SavedSeries> savedSeries) {
         seriesAdapter.setSeries(savedSeries);
+
+        progressBar.setVisibility(View.GONE);
+
+        if (savedSeries.size() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            emptyRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            emptyRecyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
