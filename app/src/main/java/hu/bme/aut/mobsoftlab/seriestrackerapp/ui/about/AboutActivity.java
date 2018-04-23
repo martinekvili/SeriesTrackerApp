@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,8 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @BindView(R.id.aboutVersionText)
+    TextView versionText;
 
     MenuItem aboutMenuItem;
 
@@ -92,7 +95,7 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
 
     @Override
     public void showVersionName(String versionName) {
-        // TODO
+        versionText.setText(getString(R.string.version_text, versionName));
     }
 
     @Override
