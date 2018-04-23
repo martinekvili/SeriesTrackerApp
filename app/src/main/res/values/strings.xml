@@ -3,4 +3,6 @@
     <string name="dialog_new_series_title">Add New Series</string>
     <string name="dialog_new_series_positive">OK</string>
     <string name="dialog_new_series_negative">Cancel</string>
+    <string name="title_main">My Series</string>
+    <string name="title_about">About</string>
 </resources>
