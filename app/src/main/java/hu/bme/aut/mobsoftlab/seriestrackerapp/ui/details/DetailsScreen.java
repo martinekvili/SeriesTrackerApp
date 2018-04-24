@@ -26,6 +26,7 @@ public interface DetailsScreen {
 
     /**
      * Shows a network error message.
+     *
      * @param errorMessage The error message to show.
      */
     void showNetworkErrorMessage(String errorMessage);

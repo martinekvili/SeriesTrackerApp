@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:text="@string/no_series"/>
+            android:text="@string/no_series" />
 
         <ProgressBar
             android:id="@+id/progressBar"

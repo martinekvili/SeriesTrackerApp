@@ -9,8 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.database.ISavedSeriesDAL;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetSeasonAndEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.NewSeriesAddedEvent;
@@ -23,7 +23,7 @@ public class NewSeriesInteractor {
 
     @Inject
     IOmdbClient omdbClient;
-    
+
     @Inject
     ISavedSeriesDAL savedSeriesDAL;
 
@@ -57,7 +57,7 @@ public class NewSeriesInteractor {
             EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
         }
     }
-    
+
     public void addNewSeries(SavedSeries series) {
         savedSeriesDAL.addSavedSeries(series);
         EventBus.getDefault().post(new NewSeriesAddedEvent());

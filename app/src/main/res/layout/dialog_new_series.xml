@@ -16,7 +16,7 @@
         android:inputType="text"
         android:imeOptions="actionDone"
         android:completionThreshold="3"
-        android:hint="@string/series_search_hint"/>
+        android:hint="@string/series_search_hint" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -92,6 +92,6 @@
         android:layout_marginTop="24dp"
         android:textColor="@android:color/holo_red_dark"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        tools:text="Network Error\nNo internet connection, maybe? Might be something else as well. Who am I to know, really."/>
+        tools:text="Network Error\nNo internet connection, maybe? Might be something else as well. Who am I to know, really." />
 
 </android.support.constraint.ConstraintLayout>

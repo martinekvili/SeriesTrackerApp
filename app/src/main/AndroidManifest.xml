@@ -13,10 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="DATABASE" android:value="series_tracker_app_database.db" />
-        <meta-data android:name="VERSION" android:value="1" />
-        <meta-data android:name="QUERY_LOG" android:value="false" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="hu.bme.aut.mobsoftlab.seriestrackerapp.database.domain" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="series_tracker_app_database.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="false" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="hu.bme.aut.mobsoftlab.seriestrackerapp.database.domain" />
 
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>

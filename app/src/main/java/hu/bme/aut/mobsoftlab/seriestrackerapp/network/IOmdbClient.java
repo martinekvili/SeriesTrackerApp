@@ -10,8 +10,9 @@ public interface IOmdbClient {
 
     /**
      * Gets the details of an episode.
-     * @param imdbID The IMDb ID of the series.
-     * @param season The season number of the episode.
+     *
+     * @param imdbID  The IMDb ID of the series.
+     * @param season  The season number of the episode.
      * @param episode The episode number of the episode.
      * @return The details of the episode.
      * @throws IOException Throws if any error happens during accessing the API.
@@ -20,6 +21,7 @@ public interface IOmdbClient {
 
     /**
      * Gets the total number of seasons and the number of episodes in the given season in a series.
+     *
      * @param imdbID The IMDb ID of the series.
      * @param season The season number to query.
      * @return The total number of seasons and the number of episodes in the given season.
@@ -29,6 +31,7 @@ public interface IOmdbClient {
 
     /**
      * Searches for series using the given prefix.
+     *
      * @param prefix The prefix to search for.
      * @return The series with the given prefix.
      * @throws IOException Throws if any error happens during accessing the API.

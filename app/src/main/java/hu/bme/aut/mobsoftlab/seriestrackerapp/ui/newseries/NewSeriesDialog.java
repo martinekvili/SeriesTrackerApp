@@ -9,22 +9,15 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -32,7 +25,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesSearchResult;
 
 public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
@@ -171,7 +163,7 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
         picker.setWrapSelectorWheel(true);
         picker.setOnValueChangedListener(changeListener);
     }
-        
+
     @Override
     public void showNetworkErrorMessage(String errorMessage) {
         networkErrorText.setText(getString(R.string.network_error_message, errorMessage));

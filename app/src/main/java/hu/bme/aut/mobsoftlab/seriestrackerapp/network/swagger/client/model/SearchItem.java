@@ -15,8 +15,6 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Objects;
-
 import io.swagger.annotations.ApiModelProperty;
 
 /**

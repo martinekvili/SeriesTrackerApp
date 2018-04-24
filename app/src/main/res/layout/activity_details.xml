@@ -95,7 +95,7 @@
                         android:visibility="gone"
                         android:layout_gravity="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:text="@string/no_more_episodes"/>
+                        android:text="@string/no_more_episodes" />
 
                     <ProgressBar
                         android:id="@+id/progressBar"
@@ -104,7 +104,7 @@
                         android:visibility="visible"
                         android:layout_gravity="center"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:indeterminate="true"/>
+                        android:indeterminate="true" />
 
                 </FrameLayout>
 

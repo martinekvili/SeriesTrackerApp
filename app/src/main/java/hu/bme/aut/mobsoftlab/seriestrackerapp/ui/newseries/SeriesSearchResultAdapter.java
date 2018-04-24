@@ -51,7 +51,7 @@ public class SeriesSearchResultAdapter extends ArrayAdapter<SeriesSearchResult> 
             if (constraint == null)
                 return null;
 
-            SeriesSearchResult[] searchResults = presenter.getSearchResults(constraint.toString()).toArray(new SeriesSearchResult[] {});
+            SeriesSearchResult[] searchResults = presenter.getSearchResults(constraint.toString()).toArray(new SeriesSearchResult[]{});
 
             FilterResults results = new FilterResults();
             results.values = searchResults;

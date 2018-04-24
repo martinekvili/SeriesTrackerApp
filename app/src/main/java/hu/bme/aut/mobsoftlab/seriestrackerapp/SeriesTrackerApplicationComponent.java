@@ -45,6 +45,6 @@ public interface SeriesTrackerApplicationComponent {
     void inject(NewSeriesPresenter newSeriesPresenter);
 
     void inject(NewSeriesInteractor newSeriesInteractor);
-    
+
     void inject(OmdbClient omdbClient);
 }

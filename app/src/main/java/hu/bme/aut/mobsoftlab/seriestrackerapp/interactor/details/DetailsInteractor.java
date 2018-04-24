@@ -21,7 +21,7 @@ public class DetailsInteractor {
 
     @Inject
     IOmdbClient omdbClient;
-    
+
     @Inject
     ISavedSeriesDAL savedSeriesDAL;
 
@@ -73,7 +73,7 @@ public class DetailsInteractor {
     private boolean isLastEpisode(SavedSeries series, SeasonsAndEpisodesCount count) {
         return series.getSeason() == count.getTotalSeasons() && series.getEpisode() == count.getEpisodesInSeason();
     }
-    
+
     public void updateSavedSeries(SavedSeries series) {
         savedSeriesDAL.updateSavedSeries(series);
         EventBus.getDefault().post(new SavedSeriesUpdatedEvent());
