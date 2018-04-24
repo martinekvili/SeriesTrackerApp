@@ -88,7 +88,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
                 .into(holder.poster);
         holder.title.setText(currentSeries.getTitle());
         holder.season.setText(context.getString(R.string.series_season, currentSeries.getSeason()));
-        holder.episode.setText(context.getString(R.string.series_episode, currentSeries.getSeason()));
+        holder.episode.setText(context.getString(R.string.series_episode, currentSeries.getEpisode()));
     }
 
     @Override

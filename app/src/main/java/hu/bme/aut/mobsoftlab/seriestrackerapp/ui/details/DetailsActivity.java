@@ -1,10 +1,20 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.GlideApp;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
@@ -18,6 +28,31 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
     @Inject
     DetailsPresenter presenter;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.seriesPoster)
+    ImageView seriesPoster;
+    @BindView(R.id.seriesTitle)
+    TextView seriesTitle;
+    @BindView(R.id.seriesSeason)
+    TextView seriesSeason;
+    @BindView(R.id.seriesEpisode)
+    TextView seriesEpisode;
+    @BindView(R.id.btnSeen)
+    Button btnSeen;
+    @BindView(R.id.noMoreEpisodes)
+    TextView noMoreEpisodes;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.descriptionTitle)
+    TextView descriptionTitle;
+    @BindView(R.id.seriesDescription)
+    TextView seriesDescription;
+    @BindView(R.id.ratingTitle)
+    TextView ratingTitle;
+    @BindView(R.id.seriesRating)
+    TextView seriesRating;
+
     public DetailsActivity() {
         SeriesTrackerApplication.injector.inject(this);
     }
@@ -27,7 +62,18 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle(R.string.title_details);
+
         setPresenterState(savedInstanceState);
+
+        btnSeen.setOnClickListener(v -> {
+            showLoading(false);
+            presenter.stepToNextEpisode();
+        });
     }
 
     private void setPresenterState(Bundle savedInstanceState) {
@@ -60,17 +106,56 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
     @Override
     protected void onResume() {
         super.onResume();
+
+        showLoading(true);
         presenter.getSeriesDetails();
+    }
+
+    private void showLoading(boolean isFirst) {
+        btnSeen.setVisibility(View.INVISIBLE);
+        noMoreEpisodes.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+
+        if (isFirst) {
+            descriptionTitle.setVisibility(View.GONE);
+            seriesDescription.setVisibility(View.GONE);
+
+            ratingTitle.setVisibility(View.GONE);
+            seriesRating.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void showSeries(SavedSeries series) {
-        // TODO set UI
+        GlideApp.with(this)
+                .load(series.getPosterUrl())
+                .placeholder(R.drawable.placeholder)
+                .fitCenter()
+                .into(seriesPoster);
+        seriesTitle.setText(series.getTitle());
+        seriesSeason.setText(getString(R.string.series_season, series.getSeason()));
+        seriesEpisode.setText(getString(R.string.series_episode, series.getEpisode()));
     }
 
     @Override
     public void showEpisodeDetails(EpisodeDetails details) {
-        // TODO set UI
+        seriesDescription.setText(details.getPlot());
+        seriesRating.setText(getString(R.string.series_rating, details.getImdbRating()));
+
+        descriptionTitle.setVisibility(View.VISIBLE);
+        seriesDescription.setVisibility(View.VISIBLE);
+
+        ratingTitle.setVisibility(View.VISIBLE);
+        seriesRating.setVisibility(View.VISIBLE);
+
+        progressBar.setVisibility(View.GONE);
+        if (details.isLastEpisode()) {
+            btnSeen.setVisibility(View.INVISIBLE);
+            noMoreEpisodes.setVisibility(View.VISIBLE);
+        } else {
+            noMoreEpisodes.setVisibility(View.GONE);
+            btnSeen.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

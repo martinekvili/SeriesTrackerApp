@@ -3,7 +3,163 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsActivity">
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/seriesPoster"
+                android:layout_width="150dp"
+                android:layout_height="225dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/barrier"
+                tools:src="@drawable/placeholder"
+                android:contentDescription="@string/series_poster" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/seriesPoster"
+                app:layout_constraintBottom_toBottomOf="@id/barrier"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/seriesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    tools:text="Rick and Morty Lorem ipsum dolor sit amet, coelit." />
+
+                <TextView
+                    android:id="@+id/seriesSeason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Season: 3" />
+
+                <TextView
+                    android:id="@+id/seriesEpisode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Episode: 9" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp">
+
+                    <Button
+                        android:id="@+id/btnSeen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:text="@string/button_seen" />
+
+                    <TextView
+                        android:id="@+id/noMoreEpisodes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:text="@string/no_more_episodes"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_gravity="center"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:indeterminate="true"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <android.support.constraint.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="seriesPoster,linearLayout" />
+
+            <TextView
+                android:id="@+id/descriptionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/series_description_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+            <TextView
+                android:id="@+id/seriesDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fermentum enim vel nibh consectetur, non aliquam tortor blandit. Quisque eu rutrum elit, eget auctor quam. Etiam euismod velit nec lacus porta ullamcorper." />
+
+            <TextView
+                android:id="@+id/ratingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/series_rating_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seriesDescription" />
+
+            <TextView
+                android:id="@+id/seriesRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ratingTitle"
+                tools:text="IMDb: 8.7/10" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

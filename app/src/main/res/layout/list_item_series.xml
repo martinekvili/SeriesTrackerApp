@@ -17,16 +17,13 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/seriesPoster"
                 android:layout_width="50dp"
                 android:layout_height="75dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
                 android:contentDescription="@string/series_poster"
                 tools:src="@drawable/placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,20 +31,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@id/seriesPoster"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:id="@+id/seriesTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Rick and Morty"
+                    tools:text="Rick and Morty Lorem ipsum dolor sit amet, coelit."
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
