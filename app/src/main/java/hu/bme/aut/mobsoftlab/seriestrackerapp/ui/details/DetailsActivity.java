@@ -2,6 +2,7 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -165,6 +166,14 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
 
     @Override
     public void showNetworkErrorMessage(String errorMessage) {
-        // TODO set UI
+        progressBar.setVisibility(View.GONE);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.network_error)
+                .setMessage(errorMessage)
+                .setPositiveButton(R.string.dialog_new_series_positive, (dialog1, which) -> finish())
+                .create();
+
+        dialog.show();
     }
 }
