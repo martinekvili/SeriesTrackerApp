@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Series Tracker</string>
     <string name="dialog_new_series_title">Add New Series</string>
-    <string name="dialog_new_series_positive">OK</string>
+    <string name="dialog_positive">OK</string>
     <string name="dialog_new_series_negative">Cancel</string>
     <string name="title_main">My Series</string>
     <string name="title_about">About</string>
@@ -18,4 +18,8 @@
     <string name="title_details">Details</string>
     <string name="no_more_episodes">There are no more episodes</string>
     <string name="network_error">Network error</string>
+    <string name="series_search_hint">Search for series</string>
+    <string name="dialog_series_season">Season:</string>
+    <string name="dialog_series_episode">Episode:</string>
+    <string name="network_error_message">Network Error\n%1$s</string>
 </resources>

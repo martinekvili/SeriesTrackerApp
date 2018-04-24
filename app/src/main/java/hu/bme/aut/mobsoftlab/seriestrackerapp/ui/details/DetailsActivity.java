@@ -171,7 +171,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.network_error)
                 .setMessage(errorMessage)
-                .setPositiveButton(R.string.dialog_new_series_positive, (dialog1, which) -> finish())
+                .setPositiveButton(R.string.dialog_positive, (dialog1, which) -> finish())
                 .create();
 
         dialog.show();

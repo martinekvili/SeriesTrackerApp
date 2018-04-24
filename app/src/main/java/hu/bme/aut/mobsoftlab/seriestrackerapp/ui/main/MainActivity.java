@@ -31,7 +31,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 
-public class MainActivity extends AppCompatActivity implements MainScreen {
+public class MainActivity extends AppCompatActivity implements MainScreen, NewSeriesDialog.DialogDismissedListener {
 
     @Inject
     MainPresenter presenter;
@@ -119,11 +119,15 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     protected void onResume() {
         super.onResume();
 
+        mainMenuItem.setChecked(true);
+        reload();
+    }
+
+    private void reload() {
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         emptyRecyclerView.setVisibility(View.GONE);
 
-        mainMenuItem.setChecked(true);
         presenter.getSeriesList();
     }
 
@@ -153,6 +157,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     public void showAddSeriesDialog(Set<String> alreadyAddedSeries) {
         NewSeriesDialog dialog = NewSeriesDialog.newInstance(alreadyAddedSeries);
         dialog.show(getSupportFragmentManager(), "NewSeriesDialogFragment");
+    }
+
+    @Override
+    public void onDialogDismissed() {
+        reload();
     }
 
     @Override

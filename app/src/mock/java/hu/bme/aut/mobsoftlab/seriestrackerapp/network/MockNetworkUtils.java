@@ -1,6 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.network;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.model.ModelApiResponse;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.model.SearchItem;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.model.SeriesData;
 
 public class MockNetworkUtils {
@@ -32,5 +33,12 @@ public class MockNetworkUtils {
                 .seriesID(seriesData.getSeriesID())
                 .type(seriesData.getType())
                 .totalSeasons(seriesData.getTotalSeasons());
+    }
+
+    public static SearchItem createSearchItem(SeriesData seriesData) {
+        return new SearchItem()
+                .imdbID(seriesData.getImdbID())
+                .title(seriesData.getTitle())
+                .poster(seriesData.getPoster());
     }
 }

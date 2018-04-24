@@ -1,13 +1,97 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog">
 
-    <!-- TODO: Update blank fragment layout -->
+    android:padding="12dp">
+
+    <hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.DelayAutoCompleteTextView
+        android:id="@+id/seriesSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:completionThreshold="3"
+        android:hint="@string/series_search_hint"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/seriesSearch"
+        app:layout_constraintBottom_toBottomOf="@id/seriesSearch"
+        app:layout_constraintEnd_toEndOf="@id/seriesSearch"
+        android:layout_margin="8dp"
+        style="?android:attr/progressBarStyleLarge" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        app:layout_constraintTop_toBottomOf="@id/seriesSearch"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            android:id="@+id/seasonLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:text="@string/dialog_series_season" />
+
+        <NumberPicker
+            android:id="@+id/seasonPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp" />
+
+        <TextView
+            android:id="@+id/episodeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:text="@string/dialog_series_episode" />
+
+        <NumberPicker
+            android:id="@+id/episodePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp" />
+
+    </LinearLayout>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TODO create dialog UI" />
+        android:id="@+id/networkErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        app:layout_constraintTop_toBottomOf="@id/seriesSearch"
+        android:layout_marginTop="24dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        tools:text="Network Error\nNo internet connection, maybe? Might be something else as well. Who am I to know, really."/>
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

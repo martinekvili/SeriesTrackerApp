@@ -55,7 +55,7 @@ public class NewSeriesInteractor {
             EventBus.getDefault().post(new GetEpisodeCountEvent(count.getEpisodesInSeason()));
         } catch (IOException e) {
             EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
-        }        EventBus.getDefault().post(new NewSeriesAddedEvent());
+        }
     }
     
     public void addNewSeries(SavedSeries series) {
