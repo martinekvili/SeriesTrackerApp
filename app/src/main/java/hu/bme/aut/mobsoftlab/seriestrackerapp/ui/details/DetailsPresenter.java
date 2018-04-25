@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.IDetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.GetSeriesDetailsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.SavedSeriesUpdatedEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.StepToNextEpisodeEvent;
@@ -27,7 +27,7 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
     Executor databaseExecutor;
 
     @Inject
-    DetailsInteractor interactor;
+    IDetailsInteractor interactor;
 
     private DetailsPresenterState state;
 

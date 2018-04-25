@@ -16,7 +16,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
 
-public class DetailsInteractor {
+public class DetailsInteractor implements IDetailsInteractor {
 
     @Inject
     IEventSender eventSender;
@@ -31,6 +31,7 @@ public class DetailsInteractor {
         SeriesTrackerApplication.injector.inject(this);
     }
 
+    @Override
     public void getEpisodeDetails(SavedSeries series) {
         try {
             EpisodeDetails episodeDetails = omdbClient.getEpisodeDetails(series.getImdbID(), series.getSeason(), series.getEpisode());
@@ -44,6 +45,7 @@ public class DetailsInteractor {
         }
     }
 
+    @Override
     public void stepToNextEpisode(SavedSeries series) {
         try {
             SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(series.getImdbID(), series.getSeason());
@@ -76,6 +78,7 @@ public class DetailsInteractor {
         return series.getSeason() == count.getTotalSeasons() && series.getEpisode() == count.getEpisodesInSeason();
     }
 
+    @Override
     public void updateSavedSeries(SavedSeries series) {
         savedSeriesDAL.updateSavedSeries(series);
         eventSender.send(new SavedSeriesUpdatedEvent());

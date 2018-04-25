@@ -5,6 +5,7 @@ import dagger.Provides;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.AboutInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.IAboutInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.IDetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
 
@@ -22,12 +23,12 @@ public class InteractorModule {
     }
 
     @Provides
-    public DetailsInteractor provideDetailsInteractor() {
+    public IDetailsInteractor provideDetailsInteractor() {
         return new DetailsInteractor();
     }
 
     @Provides
-    public NewSeriesInteractor providesNewSeriesInteractor() {
+    public NewSeriesInteractor provideNewSeriesInteractor() {
         return new NewSeriesInteractor();
     }
 }

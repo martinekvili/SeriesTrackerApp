@@ -3,6 +3,8 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import hu.bme.aut.mobsoftlab.seriestrackerapp.util.ObjectsHelper;
+
 public class EpisodeDetails implements Parcelable {
 
     private final String plot;
@@ -29,6 +31,25 @@ public class EpisodeDetails implements Parcelable {
     public void setLastEpisode(boolean lastEpisode) {
         isLastEpisode = lastEpisode;
     }
+
+    // region equals implementation
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EpisodeDetails that = (EpisodeDetails) o;
+        return isLastEpisode == that.isLastEpisode &&
+                ObjectsHelper.equals(plot, that.plot) &&
+                ObjectsHelper.equals(imdbRating, that.imdbRating);
+    }
+
+    @Override
+    public int hashCode() {
+        return ObjectsHelper.hash(plot, imdbRating, isLastEpisode);
+    }
+
+    // endregion
 
     // region Parcelable implementation
 

@@ -7,32 +7,34 @@ import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import hu.bme.aut.mobsoftlab.seriestrackerapp.DaggerSeriesTrackerApplicationComponent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.TestSeriesTrackerApplicationHelper;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.IAboutInteractor;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.MockInteractorModule;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.TestInteractorModule;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE, application = SeriesTrackerApplication.class)
 public class AboutPresenterTest {
 
+    private IAboutInteractor interactor;
+    private AboutScreen screen;
+    private AboutPresenter presenter;
+
     @Before
     public void initMock() {
-        IAboutInteractor interactor = Mockito.mock(IAboutInteractor.class);
-        Mockito.when(interactor.getVersionName()).thenReturn("0.1.1-test");
+        interactor = Mockito.mock(IAboutInteractor.class);
+        TestSeriesTrackerApplicationHelper.createTestInjector(new TestInteractorModule(interactor));
 
-        SeriesTrackerApplication.injector = DaggerSeriesTrackerApplicationComponent
-                .builder()
-                .interactorModule(new MockInteractorModule(interactor))
-                .build();
+        screen = Mockito.mock(AboutScreen.class);
+
+        presenter = new AboutPresenter();
+        presenter.attachScreen(screen);
     }
 
     @Test
     public void getVersionName_isCorrect() {
         // Given
-        AboutScreen screen = Mockito.mock(AboutScreen.class);
-        AboutPresenter presenter = new AboutPresenter();
-        presenter.attachScreen(screen);
+        Mockito.when(interactor.getVersionName()).thenReturn("0.1.1-test");
 
         // When
         presenter.getVersionName();
@@ -43,11 +45,6 @@ public class AboutPresenterTest {
 
     @Test
     public void navigateBack_isCorrect() {
-        // Given
-        AboutScreen screen = Mockito.mock(AboutScreen.class);
-        AboutPresenter presenter = new AboutPresenter();
-        presenter.attachScreen(screen);
-
         // When
         presenter.navigateBack();
 
