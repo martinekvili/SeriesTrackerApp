@@ -3,6 +3,8 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import hu.bme.aut.mobsoftlab.seriestrackerapp.util.ObjectsHelper;
+
 public class SavedSeries implements Parcelable {
 
     private final String imdbID;
@@ -57,6 +59,25 @@ public class SavedSeries implements Parcelable {
     public SavedSeries copy() {
         return new SavedSeries(imdbID, title, posterUrl, season, episode);
     }
+
+    // region equals implementation
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SavedSeries series = (SavedSeries) o;
+        return season == series.season &&
+                episode == series.episode &&
+                ObjectsHelper.equals(imdbID, series.imdbID);
+    }
+
+    @Override
+    public int hashCode() {
+        return ObjectsHelper.hash(imdbID, season, episode);
+    }
+
+    // endregion
 
     // region Parcelable implementation
 
