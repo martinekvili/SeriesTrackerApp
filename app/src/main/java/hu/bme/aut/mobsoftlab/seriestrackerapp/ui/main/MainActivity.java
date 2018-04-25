@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle(R.string.title_main);
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        if (actionbar != null) {
+            actionbar.setTitle(R.string.title_main);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
 
         mainMenuItem = navigationView.getMenu().findItem(R.id.nav_main);
         navigationView.setNavigationItemSelectedListener(menuItem -> {

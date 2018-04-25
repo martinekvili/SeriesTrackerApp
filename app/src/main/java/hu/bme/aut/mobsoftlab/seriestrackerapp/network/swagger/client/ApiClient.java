@@ -1,5 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -72,9 +74,7 @@ public class ApiClient {
         json = new JSON();
         okBuilder = new OkHttpClient.Builder();
 
-        String baseUrl = "http://www.omdbapi.com";
-        if (!baseUrl.endsWith("/"))
-            baseUrl = baseUrl + "/";
+        String baseUrl = "http://www.omdbapi.com/";
 
         adapterBuilder = new Retrofit
                 .Builder()
@@ -197,8 +197,9 @@ class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
         this.type = type;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public T convert(ResponseBody value) throws IOException {
+    public T convert(@NonNull ResponseBody value) throws IOException {
         String returned = value.string();
         try {
             return gson.fromJson(returned, type);

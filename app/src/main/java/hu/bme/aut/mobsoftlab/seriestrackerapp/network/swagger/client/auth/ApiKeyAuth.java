@@ -1,5 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.auth;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,7 +38,7 @@ public class ApiKeyAuth implements Interceptor {
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         String paramValue;
         Request request = chain.request();
 

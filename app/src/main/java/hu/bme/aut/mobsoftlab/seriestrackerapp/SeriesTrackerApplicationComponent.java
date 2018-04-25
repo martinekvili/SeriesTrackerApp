@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.database.DatabaseModule;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.EventSenderModule;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.InteractorModule;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
@@ -21,7 +22,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesPresenter;
 
 @Singleton
-@Component(modules = {UIModule.class, InteractorModule.class, DatabaseModule.class, NetworkModule.class})
+@Component(modules = {UIModule.class, InteractorModule.class, EventSenderModule.class, DatabaseModule.class, NetworkModule.class})
 public interface SeriesTrackerApplicationComponent {
 
     void inject(MainActivity mainActivity);

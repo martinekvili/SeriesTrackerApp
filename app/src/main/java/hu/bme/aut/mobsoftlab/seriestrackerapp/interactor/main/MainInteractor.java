@@ -1,15 +1,17 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.database.ISavedSeriesDAL;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.IEventSender;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetAlreadyAddedSeriesIDsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetSeriesListEvent;
 
 public class MainInteractor {
+
+    @Inject
+    IEventSender eventSender;
 
     @Inject
     ISavedSeriesDAL savedSeriesDAL;
@@ -19,10 +21,10 @@ public class MainInteractor {
     }
 
     public void getSeriesList() {
-        EventBus.getDefault().post(new GetSeriesListEvent(savedSeriesDAL.getSavedSeries()));
+        eventSender.send(new GetSeriesListEvent(savedSeriesDAL.getSavedSeries()));
     }
 
     public void getAlreadyAddedSeriesIDs() {
-        EventBus.getDefault().post(new GetAlreadyAddedSeriesIDsEvent(savedSeriesDAL.getAlreadyAddedSeriesIDs()));
+        eventSender.send(new GetAlreadyAddedSeriesIDsEvent(savedSeriesDAL.getAlreadyAddedSeriesIDs()));
     }
 }

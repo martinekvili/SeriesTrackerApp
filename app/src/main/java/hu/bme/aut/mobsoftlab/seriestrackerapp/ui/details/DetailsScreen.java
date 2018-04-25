@@ -20,11 +20,6 @@ public interface DetailsScreen {
     void showEpisodeDetails(EpisodeDetails details);
 
     /**
-     * Navigates back to the main page.
-     */
-    void navigateBack();
-
-    /**
      * Shows a network error message.
      *
      * @param errorMessage The error message to show.

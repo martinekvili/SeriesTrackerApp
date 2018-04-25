@@ -46,9 +46,11 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle(R.string.title_about);
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        if (actionbar != null) {
+            actionbar.setTitle(R.string.title_about);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
 
         aboutMenuItem = navigationView.getMenu().findItem(R.id.nav_about);
         navigationView.setNavigationItemSelectedListener(menuItem -> {

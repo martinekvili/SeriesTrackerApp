@@ -67,7 +67,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle(R.string.title_details);
+        if (actionbar != null)
+            actionbar.setTitle(R.string.title_details);
 
         setPresenterState(savedInstanceState);
 
@@ -157,11 +158,6 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
             noMoreEpisodes.setVisibility(View.GONE);
             btnSeen.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public void navigateBack() {
-        finish();
     }
 
     @Override

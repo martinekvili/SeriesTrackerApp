@@ -1,13 +1,12 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.IOException;
 
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.database.ISavedSeriesDAL;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.IEventSender;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.GetSeriesDetailsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.event.SavedSeriesUpdatedEvent;
@@ -18,6 +17,9 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
 
 public class DetailsInteractor {
+
+    @Inject
+    IEventSender eventSender;
 
     @Inject
     IOmdbClient omdbClient;
@@ -36,9 +38,9 @@ public class DetailsInteractor {
             SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(series.getImdbID(), series.getSeason());
             episodeDetails.setLastEpisode(isLastEpisode(series, count));
 
-            EventBus.getDefault().post(new GetSeriesDetailsEvent(episodeDetails));
+            eventSender.send(new GetSeriesDetailsEvent(episodeDetails));
         } catch (IOException e) {
-            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+            eventSender.send(new NetworkErrorEvent(e.getMessage()));
         }
     }
 
@@ -64,9 +66,9 @@ public class DetailsInteractor {
             EpisodeDetails episodeDetails = omdbClient.getEpisodeDetails(series.getImdbID(), series.getSeason(), series.getEpisode());
             episodeDetails.setLastEpisode(isLastEpisode);
 
-            EventBus.getDefault().post(new StepToNextEpisodeEvent(series, episodeDetails));
+            eventSender.send(new StepToNextEpisodeEvent(series, episodeDetails));
         } catch (IOException e) {
-            EventBus.getDefault().post(new NetworkErrorEvent(e.getMessage()));
+            eventSender.send(new NetworkErrorEvent(e.getMessage()));
         }
     }
 
@@ -76,6 +78,6 @@ public class DetailsInteractor {
 
     public void updateSavedSeries(SavedSeries series) {
         savedSeriesDAL.updateSavedSeries(series);
-        EventBus.getDefault().post(new SavedSeriesUpdatedEvent());
+        eventSender.send(new SavedSeriesUpdatedEvent());
     }
 }

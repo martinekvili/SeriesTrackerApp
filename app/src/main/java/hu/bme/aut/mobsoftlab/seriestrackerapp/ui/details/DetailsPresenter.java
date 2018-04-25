@@ -81,10 +81,6 @@ public class DetailsPresenter extends PresenterWithEvents<DetailsScreen> {
         }
     }
 
-    public void navigateBack() {
-        screen.navigateBack();
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNetworkErrorEvent(final NetworkErrorEvent event) {
         if (screen != null)
