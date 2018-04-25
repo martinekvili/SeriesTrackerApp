@@ -3,13 +3,13 @@ package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about;
 import javax.inject.Inject;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.AboutInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.IAboutInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.Presenter;
 
 public class AboutPresenter extends Presenter<AboutScreen> {
 
     @Inject
-    AboutInteractor interactor;
+    IAboutInteractor interactor;
 
     private String versionName;
 
