@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.IMainInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetAlreadyAddedSeriesIDsEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.event.GetSeriesListEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
@@ -22,7 +22,7 @@ public class MainPresenter extends PresenterWithEvents<MainScreen> {
     Executor databaseExecutor;
 
     @Inject
-    MainInteractor interactor;
+    IMainInteractor interactor;
 
     public MainPresenter() {
         SeriesTrackerApplication.injector.inject(this);

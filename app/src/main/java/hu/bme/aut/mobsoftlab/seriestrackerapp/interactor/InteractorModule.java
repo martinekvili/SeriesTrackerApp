@@ -6,6 +6,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.AboutInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.about.IAboutInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.DetailsInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details.IDetailsInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.IMainInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.main.MainInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
 
@@ -13,7 +14,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInte
 public class InteractorModule {
 
     @Provides
-    public MainInteractor provideMainInteractor() {
+    public IMainInteractor provideMainInteractor() {
         return new MainInteractor();
     }
 

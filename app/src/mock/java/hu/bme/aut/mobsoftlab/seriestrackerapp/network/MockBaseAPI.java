@@ -23,39 +23,6 @@ public class MockBaseAPI implements BaseApi {
 
     public MockBaseAPI() {
         this.database = new HashMap<>();
-
-//        database.put("tt2861424", createSeriesData(
-//                "tt2861424",
-//                "Rick and Morty",
-//                "https://images-na.ssl-images-amazon.com/images/M/MV5BMzhhNzY1MzUtYjE1OC00ZDVkLWE4Y2YtZmEzYWZiNTdiOGE1XkEyXkFqcGdeQXVyNjExODE1MDc@._V1_SX300.jpg",
-//                "Rick brings Beth to a world he created for her when she was younger while Beth looks for a long-lost childhood friend trapped there for years.",
-//                "8.2",
-//                3));
-//        episodeCount.put("tt2861424", 13);
-//        database.put("tt0903747", createSeriesData(
-//                "tt0903747",
-//                "Breaking Bad",
-//                "https://ia.media-imdb.com/images/M/MV5BZDNhNzhkNDctOTlmOS00NWNmLWEyODQtNWMxM2UzYmJiNGMyXkEyXkFqcGdeQXVyNTMxMjgxMzA@._V1_SX300.jpg",
-//                "Walt and Jesse seek out an unlikely partner for a new business venture. The DEA follows up new leads in its investigation.",
-//                "8.8",
-//                6));
-//        episodeCount.put("tt0903747", 13);
-//        database.put("tt1486217", createSeriesData(
-//                "tt1486217",
-//                "Archer",
-//                "https://ia.media-imdb.com/images/M/MV5BMTg3NTMwMzY2OF5BMl5BanBnXkFtZTgwMDcxMjQ0NDE@._V1_SX300.jpg",
-//                "Archer's search for his father's identity by going to Russia puts him in hot water as he is held prisoner by Nikolai Jackov and Malory has to ask Barry Dillon to rescue him.",
-//                "8.1",
-//                3));
-//        episodeCount.put("tt1486217", 17);
-//        database.put("tt0063889", createSeriesData(
-//                "tt0063889",
-//                "Dastardly and Muttley in Their Flying Machines",
-//                "https://images-na.ssl-images-amazon.com/images/M/MV5BMzhhNzY1MzUtYjE1OC00ZDVkLWE4Y2YtZmEzYWZiNTdiOGE1XkEyXkFqcGdeQXVyNjExODE1MDc@._V1_SX300.jpg",
-//                "Kerry and Bridget are caught partying on the evening news while the family is vacationing at Cate's parents home in Florida. The news also runs an archived video that features a young Cate, who is very drunk at a bar.",
-//                "7.2",
-//                1));
-//        episodeCount.put("tt0063889", 18);
     }
 
     public void add(SeriesDataWithEpisodeCount data) {
