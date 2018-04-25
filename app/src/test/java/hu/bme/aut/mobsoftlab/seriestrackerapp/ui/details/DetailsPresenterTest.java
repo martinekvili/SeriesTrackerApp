@@ -1,5 +1,6 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +47,7 @@ public class DetailsPresenterTest {
         DetailsPresenterState state = new DetailsPresenterState(series);
         state.setDetails(details);
         presenter.setState(state);
+        Assert.assertEquals(state, presenter.getState());
 
         // When
         presenter.getSeriesDetails();

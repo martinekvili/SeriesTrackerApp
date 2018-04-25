@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.common.event.NetworkErrorEvent;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.NewSeriesInteractor;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.INewSeriesInteractor;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.GetSeasonAndEpisodeCountEvent;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries.event.NewSeriesAddedEvent;
@@ -32,7 +32,7 @@ public class NewSeriesPresenter extends PresenterWithEvents<NewSeriesScreen> {
     Executor databaseExecutor;
 
     @Inject
-    NewSeriesInteractor interactor;
+    INewSeriesInteractor interactor;
 
     private Set<String> alreadyAddedSeries;
     private SavedSeries series;

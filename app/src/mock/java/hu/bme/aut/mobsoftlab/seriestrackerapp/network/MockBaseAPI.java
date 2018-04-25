@@ -69,8 +69,7 @@ public class MockBaseAPI implements BaseApi {
 
                 response.setEpisodes(episodes);
             }
-        }
-        else
+        } else
             response = new ModelApiResponse().response(false).error("Could not find resource");
 
         return Calls.response(response);

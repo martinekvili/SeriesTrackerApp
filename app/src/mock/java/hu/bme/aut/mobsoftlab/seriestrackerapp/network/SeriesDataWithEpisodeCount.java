@@ -9,12 +9,12 @@ public class SeriesDataWithEpisodeCount {
 
     public SeriesDataWithEpisodeCount(String imdbID, String title, String posterUrl, String plot, String imdbRating, int totalSeasons, int episodeCount) {
         this(new SeriesData()
-                .imdbID(imdbID)
-                .title(title)
-                .poster(posterUrl)
-                .plot(plot)
-                .imdbRating(imdbRating)
-                .totalSeasons(totalSeasons),
+                        .imdbID(imdbID)
+                        .title(title)
+                        .poster(posterUrl)
+                        .plot(plot)
+                        .imdbRating(imdbRating)
+                        .totalSeasons(totalSeasons),
                 episodeCount);
     }
 

@@ -18,7 +18,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesSearchResult;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
 
-public class NewSeriesInteractor {
+public class NewSeriesInteractor implements INewSeriesInteractor {
 
     @Inject
     IEventSender eventSender;
@@ -33,6 +33,7 @@ public class NewSeriesInteractor {
         SeriesTrackerApplication.injector.inject(this);
     }
 
+    @Override
     public List<SeriesSearchResult> getSearchResults(String prefix) {
         try {
             return omdbClient.getSeriesSearchResult(prefix);
@@ -42,6 +43,7 @@ public class NewSeriesInteractor {
         }
     }
 
+    @Override
     public void getSeasonAndEpisodeCount(String imdbID) {
         try {
             SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(imdbID, 1);
@@ -51,6 +53,7 @@ public class NewSeriesInteractor {
         }
     }
 
+    @Override
     public void getEpisodeCount(String imdbID, int season) {
         try {
             SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(imdbID, season);
@@ -60,6 +63,7 @@ public class NewSeriesInteractor {
         }
     }
 
+    @Override
     public void addNewSeries(SavedSeries series) {
         savedSeriesDAL.addSavedSeries(series);
         eventSender.send(new NewSeriesAddedEvent());

@@ -8,7 +8,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.ApiClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.api.BaseApi;
 
 @Module
