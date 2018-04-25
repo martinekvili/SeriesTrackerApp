@@ -14,6 +14,8 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.network.swagger.client.api.BaseApi
 @Module
 public class NetworkModule {
 
+    public static MockBaseAPI baseAPI = new MockBaseAPI();
+
     @Provides
     @Singleton
     @Named("NetworkExecutor")
@@ -24,7 +26,7 @@ public class NetworkModule {
     @Provides
     @Singleton
     public BaseApi provideBaseApi() {
-        return new MockBaseAPI();
+        return baseAPI;
     }
 
     @Provides

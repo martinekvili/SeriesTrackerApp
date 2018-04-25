@@ -116,7 +116,10 @@ public class MockBaseAPI implements BaseApi {
                 result.add(MockNetworkUtils.createSearchItem(data.getSeriesData()));
         }
 
-        return Calls.response(new ModelApiResponse().response(true).search(result));
+        if (result.size() > 0)
+            return Calls.response(new ModelApiResponse().response(true).search(result));
+        else
+            return Calls.response(new ModelApiResponse().response(false).error("No results"));
     }
 
     @Override
