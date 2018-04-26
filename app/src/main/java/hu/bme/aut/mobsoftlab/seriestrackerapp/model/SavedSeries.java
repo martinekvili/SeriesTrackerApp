@@ -26,6 +26,8 @@ public class SavedSeries implements Parcelable {
         this.imdbID = searchResult.getImdbID();
         this.title = searchResult.getTitle();
         this.posterUrl = searchResult.getPosterUrl();
+        this.season = 1;
+        this.episode = 1;
     }
 
     public String getImdbID() {
