@@ -1,5 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.details;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -15,6 +17,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
+import io.fabric.sdk.android.Fabric;
 
 public class DetailsInteractor implements IDetailsInteractor {
 
@@ -41,6 +44,9 @@ public class DetailsInteractor implements IDetailsInteractor {
 
             eventSender.send(new GetSeriesDetailsEvent(episodeDetails));
         } catch (IOException e) {
+            if (Fabric.isInitialized())
+                Crashlytics.logException(e);
+
             eventSender.send(new NetworkErrorEvent(e.getMessage()));
         }
     }
@@ -70,6 +76,9 @@ public class DetailsInteractor implements IDetailsInteractor {
 
             eventSender.send(new StepToNextEpisodeEvent(series, episodeDetails));
         } catch (IOException e) {
+            if (Fabric.isInitialized())
+                Crashlytics.logException(e);
+
             eventSender.send(new NetworkErrorEvent(e.getMessage()));
         }
     }

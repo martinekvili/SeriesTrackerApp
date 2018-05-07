@@ -1,5 +1,7 @@
 package hu.bme.aut.mobsoftlab.seriestrackerapp.interactor.newseries;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesSearchResult;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.IOmdbClient;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.network.SeasonsAndEpisodesCount;
+import io.fabric.sdk.android.Fabric;
 
 public class NewSeriesInteractor implements INewSeriesInteractor {
 
@@ -38,6 +41,9 @@ public class NewSeriesInteractor implements INewSeriesInteractor {
         try {
             return omdbClient.getSeriesSearchResult(prefix);
         } catch (IOException e) {
+            if (Fabric.isInitialized())
+                Crashlytics.logException(e);
+
             eventSender.send(new NetworkErrorEvent(e.getMessage()));
             return new ArrayList<>();
         }
@@ -49,6 +55,9 @@ public class NewSeriesInteractor implements INewSeriesInteractor {
             SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(imdbID, 1);
             eventSender.send(new GetSeasonAndEpisodeCountEvent(count.getTotalSeasons(), count.getEpisodesInSeason()));
         } catch (IOException e) {
+            if (Fabric.isInitialized())
+                Crashlytics.logException(e);
+
             eventSender.send(new NetworkErrorEvent(e.getMessage()));
         }
     }
@@ -59,6 +68,9 @@ public class NewSeriesInteractor implements INewSeriesInteractor {
             SeasonsAndEpisodesCount count = omdbClient.getSeasonsAndEpisodesCount(imdbID, season);
             eventSender.send(new GetEpisodeCountEvent(count.getEpisodesInSeason()));
         } catch (IOException e) {
+            if (Fabric.isInitialized())
+                Crashlytics.logException(e);
+
             eventSender.send(new NetworkErrorEvent(e.getMessage()));
         }
     }

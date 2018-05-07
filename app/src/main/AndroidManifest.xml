@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- SugarORM -->
         <meta-data
             android:name="DATABASE"
             android:value="series_tracker_app_database.db" />
@@ -25,6 +26,11 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="hu.bme.aut.mobsoftlab.seriestrackerapp.database.domain" />
+
+        <!-- Crashlytics -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="93461890bda706e91a31a64554c5f475aaccf73a" />
 
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
