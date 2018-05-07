@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.about.AboutActivity;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.common.AnalyticsHelper;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.details.DetailsActivity;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.newseries.NewSeriesDialog;
 
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
     private SeriesAdapter seriesAdapter;
 
     private MenuItem mainMenuItem;
+
+    private Tracker mTracker;
 
     public MainActivity() {
         SeriesTrackerApplication.injector.inject(this);
@@ -92,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
         seriesAdapter = new SeriesAdapter(selectedSeries -> presenter.selectSeries(selectedSeries));
         recyclerView.setAdapter(seriesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mTracker = AnalyticsHelper.getTracker(this);
     }
 
     @Override
@@ -122,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen, NewSe
 
         mainMenuItem.setChecked(true);
         reload();
+
+        AnalyticsHelper.sendScreenViewEvent(mTracker, "MainScreen");
     }
 
     private void reload() {

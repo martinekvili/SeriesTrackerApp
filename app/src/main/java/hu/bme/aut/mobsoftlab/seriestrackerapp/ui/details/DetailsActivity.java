@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.Tracker;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -20,6 +22,7 @@ import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.EpisodeDetails;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SavedSeries;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.common.AnalyticsHelper;
 
 public class DetailsActivity extends AppCompatActivity implements DetailsScreen {
 
@@ -54,6 +57,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
     @BindView(R.id.seriesRating)
     TextView seriesRating;
 
+    private Tracker mTracker;
+
     public DetailsActivity() {
         SeriesTrackerApplication.injector.inject(this);
     }
@@ -76,6 +81,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
             showLoading(false);
             presenter.stepToNextEpisode();
         });
+
+        mTracker = AnalyticsHelper.getTracker(this);
     }
 
     private void setPresenterState(Bundle savedInstanceState) {
@@ -111,6 +118,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsScreen 
 
         showLoading(true);
         presenter.getSeriesDetails();
+
+        AnalyticsHelper.sendScreenViewEvent(mTracker, "DetailsScreen");
     }
 
     private void showLoading(boolean isFirst) {

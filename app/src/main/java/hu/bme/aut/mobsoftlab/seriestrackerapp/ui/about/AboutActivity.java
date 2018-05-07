@@ -10,12 +10,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.Tracker;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.common.AnalyticsHelper;
 
 public class AboutActivity extends AppCompatActivity implements AboutScreen {
 
@@ -31,7 +34,9 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
     @BindView(R.id.aboutVersionText)
     TextView versionText;
 
-    MenuItem aboutMenuItem;
+    private MenuItem aboutMenuItem;
+
+    private Tracker mTracker;
 
     public AboutActivity() {
         SeriesTrackerApplication.injector.inject(this);
@@ -64,6 +69,8 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
 
             return true;
         });
+
+        mTracker = AnalyticsHelper.getTracker(this);
     }
 
     @Override
@@ -91,8 +98,11 @@ public class AboutActivity extends AppCompatActivity implements AboutScreen {
     @Override
     protected void onResume() {
         super.onResume();
+
         aboutMenuItem.setChecked(true);
         presenter.getVersionName();
+
+        AnalyticsHelper.sendScreenViewEvent(mTracker, "AboutScreen");
     }
 
     @Override

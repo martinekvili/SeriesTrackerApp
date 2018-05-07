@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,6 +29,7 @@ import butterknife.ButterKnife;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.R;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.SeriesTrackerApplication;
 import hu.bme.aut.mobsoftlab.seriestrackerapp.model.SeriesSearchResult;
+import hu.bme.aut.mobsoftlab.seriestrackerapp.ui.common.AnalyticsHelper;
 
 public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
 
@@ -48,6 +52,8 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     NumberPicker episodePicker;
     @BindView(R.id.networkErrorText)
     TextView networkErrorText;
+
+    private Tracker mTracker;
 
     public NewSeriesDialog() {
         setRetainInstance(true);
@@ -110,6 +116,13 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mTracker =  AnalyticsHelper.getTracker(getActivity());
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -128,6 +141,13 @@ public class NewSeriesDialog extends DialogFragment implements NewSeriesScreen {
         seriesSearch.setLoadingIndicator(progressBar);
         seriesSearch.setOnItemClickListener(
                 (parent, view, position, id) -> presenter.chooseSeries((SeriesSearchResult) parent.getItemAtPosition(position)));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        AnalyticsHelper.sendScreenViewEvent(mTracker, "NewSeriesScreen");
     }
 
     /**
